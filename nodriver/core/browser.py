@@ -121,6 +121,7 @@ class Browser:
         self._process_pid = None
         self._keep_user_data_dir = None
         self._is_updating = asyncio.Event()
+        self._closing = False
         self.connection: Connection = None
         logger.debug("Session object initialized: %s" % vars(self))
 
@@ -129,8 +130,10 @@ class Browser:
         return self.info.webSocketDebuggerUrl
 
     @property
-    def main_tab(self) -> tab.Tab:
+    def main_tab(self) -> tab.Tab | None:
         """returns the target which was launched with the browser"""
+        if not self.targets:
+            return None
         return sorted(self.targets, key=lambda x: x.type_ == "page", reverse=True)[0]
 
     @property
@@ -185,6 +188,9 @@ class Browser:
     ):
         """this is an internal handler which updates the targets when chrome emits the corresponding event"""
 
+        if self._closing:
+            return
+
         if isinstance(event, cdp.target.TargetInfoChanged):
             target_info = event.target_info
 
@@ -237,6 +243,16 @@ class Browser:
             self.targets.remove(current_tab)
 
         asyncio.create_task(self.update_targets())
+
+    async def _wait_for_initial_targets(
+        self, timeout: float = 0.25, retries: int = 20
+    ):
+        for _ in range(retries):
+            await self.update_targets(timeout=timeout)
+            if self.targets:
+                return self.targets
+            await asyncio.sleep(timeout)
+        return self.targets
 
     async def get(
         self, url="chrome://welcome", new_tab: bool = False, new_window: bool = False
@@ -366,6 +382,8 @@ class Browser:
             warnings.warn("ignored! this call has no effect when already running.")
             return
 
+        self._closing = False
+
         # self.config.update(kwargs)
         connect_existing = False
         if self.config.host is not None and self.config.port is not None:
@@ -427,7 +445,10 @@ class Browser:
         await asyncio.sleep(0.25)
         for _ in range(5):
             try:
-                self.info = ContraDict(await self._http.get("version"), silent=True)
+                self.info = ContraDict(
+                    await asyncio.wait_for(self._http.get("version"), 2),
+                    silent=True,
+                )
             except (Exception,):
                 if _ == 4:
                     logger.debug("could not start", exc_info=True)
@@ -467,7 +488,7 @@ class Browser:
             ]
             await self.connection.send(cdp.target.set_discover_targets(discover=True))
 
-        await self.update_targets()
+        await self._wait_for_initial_targets()
         await self
 
     async def grant_all_permissions(self):
@@ -564,38 +585,59 @@ class Browser:
                     continue
         return grid
 
-    async def _get_targets(self) -> List[cdp.target.TargetInfo]:
-        info = await self.connection.send(cdp.target.get_targets(), _is_update=True)
-        return info
+    async def _get_targets(
+        self, timeout: float = 1.0
+    ) -> List[cdp.target.TargetInfo]:
+        try:
+            info = await asyncio.wait_for(
+                self.connection.send(cdp.target.get_targets(), _is_update=True),
+                timeout=timeout,
+            )
+        except asyncio.TimeoutError:
+            logger.debug("timed out waiting for browser targets")
+            return []
+        except Exception:
+            logger.debug("could not refresh browser targets", exc_info=True)
+            return []
+        return info or []
 
-    async def update_targets(self):
-        targets: List[cdp.target.TargetInfo]
-        targets = await self._get_targets()
-        target_ids = [t.target_id for t in targets]
-        existing_target_ids = [t.target_id for t in self.targets]
-        for t in targets:
-            for existing_tab in self.targets:
-                existing_target = existing_tab.target
-                if existing_target.target_id == t.target_id:
-                    existing_tab.target.__dict__.update(t.__dict__)
-                    break
-            else:
-                self.targets.append(
-                    Connection(
-                        (
-                            f"ws://{self.config.host}:{self.config.port}"
-                            f"/devtools/page"  # all types are 'page' somehow
-                            f"/{t.target_id}"
-                        ),
-                        target=t,
-                        browser=self,
+    async def update_targets(self, timeout: float = 1.0):
+        if self._closing or self._is_updating.is_set():
+            return self.targets
+        self._is_updating.set()
+        try:
+            targets: List[cdp.target.TargetInfo]
+            targets = await self._get_targets(timeout=timeout)
+            for t in targets:
+                for existing_tab in self.targets:
+                    existing_target = existing_tab.target
+                    if existing_target.target_id == t.target_id:
+                        existing_tab.target.__dict__.update(t.__dict__)
+                        break
+                else:
+                    self.targets.append(
+                        Connection(
+                            (
+                                f"ws://{self.config.host}:{self.config.port}"
+                                f"/devtools/page"  # all types are 'page' somehow
+                                f"/{t.target_id}"
+                            ),
+                            target=t,
+                            browser=self,
+                        )
                     )
-                )
 
-        await asyncio.sleep(0)
+            await asyncio.sleep(0)
+            return self.targets
+        finally:
+            self._is_updating.clear()
 
     def __iter__(self):
-        self._i = self.tabs.index(self.main_tab)
+        if not self.tabs:
+            self._i = 0
+            return self
+        main_tab = self.main_tab
+        self._i = self.tabs.index(main_tab) if main_tab in self.tabs else 0
         return self
 
     def __getitem__(
@@ -665,41 +707,48 @@ class Browser:
                     del self._i
 
     def stop(self):
+        self._closing = True
+        conn = self.connection
         try:
             # asyncio.get_running_loop().create_task(self.connection.send(cdp.browser.close()))
 
-            asyncio.get_event_loop().create_task(self.connection.disconnect())
-            logger.debug("closed the connection using get_event_loop().create_task()")
+            if conn:
+                asyncio.get_event_loop().create_task(conn.disconnect())
+                logger.debug("closed the connection using get_event_loop().create_task()")
         except RuntimeError:
-            if self.connection:
+            if conn:
                 try:
                     # asyncio.run(self.connection.send(cdp.browser.close()))
-                    asyncio.run(self.connection.disconnect())
+                    asyncio.run(conn.disconnect())
                     logger.debug("closed the connection using asyncio.run()")
                 except Exception:
                     pass
+        except Exception:
+            logger.debug("could not schedule browser disconnect", exc_info=True)
+
+        process = self._process
+        pid = self._process_pid
+        if not process:
+            self._process_pid = None
+            return
 
         for _ in range(3):
             try:
-                self._process.terminate()
-                logger.info(
-                    "terminated browser with pid %d successfully" % self._process.pid
-                )
+                process.terminate()
+                logger.info("terminated browser with pid %d successfully" % process.pid)
                 break
             except (Exception,):
                 try:
-                    self._process.kill()
-                    logger.info(
-                        "killed browser with pid %d successfully" % self._process.pid
-                    )
+                    process.kill()
+                    logger.info("killed browser with pid %d successfully" % process.pid)
                     break
                 except (Exception,):
                     try:
-                        if hasattr(self, "browser_process_pid"):
-                            os.kill(self._process_pid, 15)
+                        if pid is not None:
+                            os.kill(pid, 15)
                             logger.info(
                                 "killed browser with pid %d using signal 15 successfully"
-                                % self._process.pid
+                                % process.pid
                             )
                             break
                     except (TypeError,):
@@ -714,7 +763,7 @@ class Browser:
                         logger.info("process lookup failure")
                         pass
                     except (Exception,):
-                        raise
+                            raise
             self._process = None
             self._process_pid = None
 

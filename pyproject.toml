@@ -2,7 +2,7 @@
 
 name = "nodriver" # Required
 
-version = "0.48.1"  # Required
+version = "0.48.2"  # Required
 
 description = """
 
@@ -37,7 +37,7 @@ description = """
 
 """  # Optional
 readme = {file = "README.md", content-type = "text/markdown"} # Optional
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = {file = "LICENSE.txt"}
 keywords = [
     "webdriver", "browser", "captcha", "scraping",
@@ -56,20 +56,19 @@ classifiers = [  # Optional
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Topic :: Internet :: WWW/HTTP :: Browsers",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 
 ]
 
 dependencies = [
       "mss",
       "websockets>=14",
-      "deprecated"
+      "deprecated",
+      "inflection"
 ]
 
 #
