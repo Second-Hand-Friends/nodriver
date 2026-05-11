@@ -66,7 +66,7 @@ classifiers = [  # Optional
 
 dependencies = [
       "mss",
-      "websockets>=14",
+      "websockets>=16.0",
       "deprecated",
 ]
 
@@ -82,7 +82,7 @@ include-package-data = true
 packages = ["nodriver", "nodriver.core", "nodriver.cdp"]
 
 [build-system]
-requires = ["setuptools>=43.0.0", "wheel"]
+requires = ["setuptools>=82.0.1", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project.optional-dependencies]
