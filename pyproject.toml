@@ -2,7 +2,7 @@
 
 name = "nodriver" # Required
 
-version = "0.48.2"  # Required
+version = "0.48.1.post1"  # Required
 
 description = """
 
@@ -68,7 +68,6 @@ dependencies = [
       "mss",
       "websockets>=14",
       "deprecated",
-      "inflection"
 ]
 
 #
@@ -90,6 +89,7 @@ build-backend = "setuptools.build_meta"
 dev = [
     "black",
     "build",
+    "inflection",
     "isort",
     "sphinx",
     "sphinx_markdown_builder",
