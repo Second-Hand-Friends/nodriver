@@ -18,7 +18,7 @@ arguments to other commands.
 
 Unique accessibility node identifier.
 
-### *class* AXValueType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* AXValueType(\*values)
 
 Enum of possible property types.
 
@@ -56,7 +56,7 @@ Enum of possible property types.
 
 #### VALUE_UNDEFINED *= 'valueUndefined'*
 
-### *class* AXValueSourceType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* AXValueSourceType(\*values)
 
 Enum of possible property sources.
 
@@ -72,7 +72,7 @@ Enum of possible property sources.
 
 #### RELATED_ELEMENT *= 'relatedElement'*
 
-### *class* AXValueNativeSourceType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* AXValueNativeSourceType(\*values)
 
 Enum of possible native property sources (as a subtype of a particular AXValueSourceType).
 
@@ -100,63 +100,63 @@ Enum of possible native property sources (as a subtype of a particular AXValueSo
 
 A single source for a computed AX property.
 
-#### type_*: [`AXValueSourceType`](#nodriver.cdp.accessibility.AXValueSourceType)*
+#### type_ *: [AXValueSourceType](#nodriver.cdp.accessibility.AXValueSourceType)*
 
 What type of source this is.
 
-#### value*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValue`](#nodriver.cdp.accessibility.AXValue)]* *= None*
+#### value *: [AXValue](#nodriver.cdp.accessibility.AXValue) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The value of this property source.
 
-#### attribute*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### attribute *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The name of the relevant attribute, if any.
 
-#### attribute_value*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValue`](#nodriver.cdp.accessibility.AXValue)]* *= None*
+#### attribute_value *: [AXValue](#nodriver.cdp.accessibility.AXValue) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The value of the relevant attribute, if any.
 
-#### superseded*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`bool`](https://docs.python.org/3/library/functions.html#bool)]* *= None*
+#### superseded *: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Whether this source is superseded by a higher priority source.
 
-#### native_source*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValueNativeSourceType`](#nodriver.cdp.accessibility.AXValueNativeSourceType)]* *= None*
+#### native_source *: [AXValueNativeSourceType](#nodriver.cdp.accessibility.AXValueNativeSourceType) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The native markup source for this value, e.g. a `<label>` element.
 
-#### native_source_value*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValue`](#nodriver.cdp.accessibility.AXValue)]* *= None*
+#### native_source_value *: [AXValue](#nodriver.cdp.accessibility.AXValue) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The value, such as a node or node list, of the native source.
 
-#### invalid*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`bool`](https://docs.python.org/3/library/functions.html#bool)]* *= None*
+#### invalid *: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Whether the value for this property is invalid.
 
-#### invalid_reason*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### invalid_reason *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Reason for the value being invalid, if it is.
 
 ### *class* AXRelatedNode(backend_dom_node_id, idref=None, text=None)
 
-#### backend_dom_node_id*: [`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)*
+#### backend_dom_node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId)*
 
 The BackendNodeId of the related DOM node.
 
-#### idref*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### idref *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The IDRef value provided, if any.
 
-#### text*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### text *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The text alternative of this node in the current context.
 
 ### *class* AXProperty(name, value)
 
-#### name*: [`AXPropertyName`](#nodriver.cdp.accessibility.AXPropertyName)*
+#### name *: [AXPropertyName](#nodriver.cdp.accessibility.AXPropertyName)*
 
 The name of this property.
 
-#### value*: [`AXValue`](#nodriver.cdp.accessibility.AXValue)*
+#### value *: [AXValue](#nodriver.cdp.accessibility.AXValue)*
 
 The value of this property.
 
@@ -164,30 +164,31 @@ The value of this property.
 
 A single computed AX property.
 
-#### type_*: [`AXValueType`](#nodriver.cdp.accessibility.AXValueType)*
+#### type_ *: [AXValueType](#nodriver.cdp.accessibility.AXValueType)*
 
 The type of this value.
 
-#### value*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`Any`](https://docs.python.org/3/library/typing.html#typing.Any)]* *= None*
+#### value *: [Any](https://docs.python.org/3/library/typing.html#typing.Any) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The computed value of this property.
 
-#### related_nodes*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXRelatedNode`](#nodriver.cdp.accessibility.AXRelatedNode)]]* *= None*
+#### related_nodes *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[AXRelatedNode](#nodriver.cdp.accessibility.AXRelatedNode)] | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 One or more related nodes, if applicable.
 
-#### sources*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXValueSource`](#nodriver.cdp.accessibility.AXValueSource)]]* *= None*
+#### sources *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[AXValueSource](#nodriver.cdp.accessibility.AXValueSource)] | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The sources which contributed to the computation of this property.
 
-### *class* AXPropertyName(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* AXPropertyName(\*values)
 
 Values of AXProperty name:
 - from ‘busy’ to ‘roledescription’: states which apply to every AX node
 - from ‘live’ to ‘root’: attributes which apply to nodes in live regions
 - from ‘autocomplete’ to ‘valuetext’: attributes which apply to widgets
 - from ‘checked’ to ‘selected’: states which apply to widgets
-- from ‘activedescendant’ to ‘owns’ - relationships between elements other than parent/child/sibling.
+- from ‘activedescendant’ to ‘owns’: relationships between elements other than parent/child/sibling
+- from ‘activeFullscreenElement’ to ‘uninteresting’: reasons why this noode is hidden
 
 #### ACTIONS *= 'actions'*
 
@@ -271,59 +272,93 @@ Values of AXProperty name:
 
 #### URL *= 'url'*
 
+#### ACTIVE_FULLSCREEN_ELEMENT *= 'activeFullscreenElement'*
+
+#### ACTIVE_MODAL_DIALOG *= 'activeModalDialog'*
+
+#### ACTIVE_ARIA_MODAL_DIALOG *= 'activeAriaModalDialog'*
+
+#### ARIA_HIDDEN_ELEMENT *= 'ariaHiddenElement'*
+
+#### ARIA_HIDDEN_SUBTREE *= 'ariaHiddenSubtree'*
+
+#### EMPTY_ALT *= 'emptyAlt'*
+
+#### EMPTY_TEXT *= 'emptyText'*
+
+#### INERT_ELEMENT *= 'inertElement'*
+
+#### INERT_SUBTREE *= 'inertSubtree'*
+
+#### LABEL_CONTAINER *= 'labelContainer'*
+
+#### LABEL_FOR *= 'labelFor'*
+
+#### NOT_RENDERED *= 'notRendered'*
+
+#### NOT_VISIBLE *= 'notVisible'*
+
+#### PRESENTATIONAL_ROLE *= 'presentationalRole'*
+
+#### PROBABLY_PRESENTATIONAL *= 'probablyPresentational'*
+
+#### INACTIVE_CAROUSEL_TAB_CONTENT *= 'inactiveCarouselTabContent'*
+
+#### UNINTERESTING *= 'uninteresting'*
+
 ### *class* AXNode(node_id, ignored, ignored_reasons=None, role=None, chrome_role=None, name=None, description=None, value=None, properties=None, parent_id=None, child_ids=None, backend_dom_node_id=None, frame_id=None)
 
 A node in the accessibility tree.
 
-#### node_id*: [`AXNodeId`](#nodriver.cdp.accessibility.AXNodeId)*
+#### node_id *: [AXNodeId](#nodriver.cdp.accessibility.AXNodeId)*
 
 Unique identifier for this node.
 
-#### ignored*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### ignored *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 Whether this node is ignored for accessibility
 
-#### ignored_reasons*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXProperty`](#nodriver.cdp.accessibility.AXProperty)]]* *= None*
+#### ignored_reasons *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[AXProperty](#nodriver.cdp.accessibility.AXProperty)] | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Collection of reasons why this node is hidden.
 
-#### role*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValue`](#nodriver.cdp.accessibility.AXValue)]* *= None*
+#### role *: [AXValue](#nodriver.cdp.accessibility.AXValue) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 This `Node`’s role, whether explicit or implicit.
 
-#### chrome_role*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValue`](#nodriver.cdp.accessibility.AXValue)]* *= None*
+#### chrome_role *: [AXValue](#nodriver.cdp.accessibility.AXValue) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 This `Node`’s Chrome raw role.
 
-#### name*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValue`](#nodriver.cdp.accessibility.AXValue)]* *= None*
+#### name *: [AXValue](#nodriver.cdp.accessibility.AXValue) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The accessible name for this `Node`.
 
-#### description*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValue`](#nodriver.cdp.accessibility.AXValue)]* *= None*
+#### description *: [AXValue](#nodriver.cdp.accessibility.AXValue) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The accessible description for this `Node`.
 
-#### value*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXValue`](#nodriver.cdp.accessibility.AXValue)]* *= None*
+#### value *: [AXValue](#nodriver.cdp.accessibility.AXValue) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The value for this `Node`.
 
-#### properties*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXProperty`](#nodriver.cdp.accessibility.AXProperty)]]* *= None*
+#### properties *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[AXProperty](#nodriver.cdp.accessibility.AXProperty)] | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 All other properties
 
-#### parent_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AXNodeId`](#nodriver.cdp.accessibility.AXNodeId)]* *= None*
+#### parent_id *: [AXNodeId](#nodriver.cdp.accessibility.AXNodeId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ID for this node’s parent.
 
-#### child_ids*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXNodeId`](#nodriver.cdp.accessibility.AXNodeId)]]* *= None*
+#### child_ids *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[AXNodeId](#nodriver.cdp.accessibility.AXNodeId)] | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 IDs for each of this node’s child nodes.
 
-#### backend_dom_node_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]* *= None*
+#### backend_dom_node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The backend ID for the associated DOM node, if any.
 
-#### frame_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`FrameId`](page.md#nodriver.cdp.page.FrameId)]* *= None*
+#### frame_id *: [FrameId](page.md#nodriver.cdp.page.FrameId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The frame ID for the frame associated with this nodes document.
 
@@ -361,9 +396,9 @@ Requires `enable()` to have been called previously.
 **EXPERIMENTAL**
 
 * **Parameters:**
-  * **node_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`NodeId`](dom.md#nodriver.cdp.dom.NodeId)]) – *(Optional)* Identifier of the node to get.
-  * **backend_node_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]) – *(Optional)* Identifier of the backend node to get.
-  * **object_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RemoteObjectId`](runtime.md#nodriver.cdp.runtime.RemoteObjectId)]) – *(Optional)* JavaScript object id of the node wrapper to get.
+  * **node_id** ([`NodeId`](dom.md#nodriver.cdp.dom.NodeId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Identifier of the node to get.
+  * **backend_node_id** ([`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Identifier of the backend node to get.
+  * **object_id** ([`RemoteObjectId`](runtime.md#nodriver.cdp.runtime.RemoteObjectId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* JavaScript object id of the node wrapper to get.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXNode`](#nodriver.cdp.accessibility.AXNode)]]
 * **Returns:**
@@ -376,8 +411,8 @@ Requires `enable()` to have been called previously.
 **EXPERIMENTAL**
 
 * **Parameters:**
-  * **id** – 
-  * **frame_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`FrameId`](page.md#nodriver.cdp.page.FrameId)]) – *(Optional)* The frame in whose document the node resides. If omitted, the root frame is used.
+  * **id**
+  * **frame_id** ([`FrameId`](page.md#nodriver.cdp.page.FrameId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* The frame in whose document the node resides. If omitted, the root frame is used.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXNode`](#nodriver.cdp.accessibility.AXNode)]]
 * **Returns:**
@@ -389,8 +424,8 @@ Fetches the entire accessibility tree for the root Document
 **EXPERIMENTAL**
 
 * **Parameters:**
-  * **depth** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`int`](https://docs.python.org/3/library/functions.html#int)]) – *(Optional)* The maximum depth at which descendants of the root node should be retrieved. If omitted, the full tree is returned.
-  * **frame_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`FrameId`](page.md#nodriver.cdp.page.FrameId)]) – *(Optional)* The frame for whose document the AX tree should be retrieved. If omitted, the root frame is used.
+  * **depth** ([`int`](https://docs.python.org/3/library/functions.html#int) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* The maximum depth at which descendants of the root node should be retrieved. If omitted, the full tree is returned.
+  * **frame_id** ([`FrameId`](page.md#nodriver.cdp.page.FrameId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* The frame for whose document the AX tree should be retrieved. If omitted, the root frame is used.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXNode`](#nodriver.cdp.accessibility.AXNode)]]
 * **Returns:**
@@ -402,10 +437,10 @@ Fetches the accessibility node and partial accessibility tree for this DOM node,
 **EXPERIMENTAL**
 
 * **Parameters:**
-  * **node_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`NodeId`](dom.md#nodriver.cdp.dom.NodeId)]) – *(Optional)* Identifier of the node to get the partial accessibility tree for.
-  * **backend_node_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]) – *(Optional)* Identifier of the backend node to get the partial accessibility tree for.
-  * **object_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RemoteObjectId`](runtime.md#nodriver.cdp.runtime.RemoteObjectId)]) – *(Optional)* JavaScript object id of the node wrapper to get the partial accessibility tree for.
-  * **fetch_relatives** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`bool`](https://docs.python.org/3/library/functions.html#bool)]) – *(Optional)* Whether to fetch this node’s ancestors, siblings and children. Defaults to true.
+  * **node_id** ([`NodeId`](dom.md#nodriver.cdp.dom.NodeId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Identifier of the node to get the partial accessibility tree for.
+  * **backend_node_id** ([`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Identifier of the backend node to get the partial accessibility tree for.
+  * **object_id** ([`RemoteObjectId`](runtime.md#nodriver.cdp.runtime.RemoteObjectId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* JavaScript object id of the node wrapper to get the partial accessibility tree for.
+  * **fetch_relatives** ([`bool`](https://docs.python.org/3/library/functions.html#bool) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Whether to fetch this node’s ancestors, siblings and children. Defaults to true.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXNode`](#nodriver.cdp.accessibility.AXNode)]]
 * **Returns:**
@@ -419,7 +454,7 @@ Requires `enable()` to have been called previously.
 **EXPERIMENTAL**
 
 * **Parameters:**
-  **frame_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`FrameId`](page.md#nodriver.cdp.page.FrameId)]) – *(Optional)* The frame in whose document the node resides. If omitted, the root frame is used.
+  **frame_id** ([`FrameId`](page.md#nodriver.cdp.page.FrameId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* The frame in whose document the node resides. If omitted, the root frame is used.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`AXNode`](#nodriver.cdp.accessibility.AXNode)]
 * **Returns:**
@@ -435,11 +470,11 @@ node is specified, or the DOM node does not exist, the command returns an error.
 **EXPERIMENTAL**
 
 * **Parameters:**
-  * **node_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`NodeId`](dom.md#nodriver.cdp.dom.NodeId)]) – *(Optional)* Identifier of the node for the root to query.
-  * **backend_node_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]) – *(Optional)* Identifier of the backend node for the root to query.
-  * **object_id** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RemoteObjectId`](runtime.md#nodriver.cdp.runtime.RemoteObjectId)]) – *(Optional)* JavaScript object id of the node wrapper for the root to query.
-  * **accessible_name** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* Find nodes with this computed name.
-  * **role** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* Find nodes with this computed role.
+  * **node_id** ([`NodeId`](dom.md#nodriver.cdp.dom.NodeId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Identifier of the node for the root to query.
+  * **backend_node_id** ([`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Identifier of the backend node for the root to query.
+  * **object_id** ([`RemoteObjectId`](runtime.md#nodriver.cdp.runtime.RemoteObjectId) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* JavaScript object id of the node wrapper for the root to query.
+  * **accessible_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Find nodes with this computed name.
+  * **role** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Find nodes with this computed role.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXNode`](#nodriver.cdp.accessibility.AXNode)]]
 * **Returns:**
@@ -458,7 +493,7 @@ you use the event’s attributes.
 The loadComplete event mirrors the load complete event sent by the browser to assistive
 technology when the web page has finished loading.
 
-#### root*: [`AXNode`](#nodriver.cdp.accessibility.AXNode)*
+#### root *: [AXNode](#nodriver.cdp.accessibility.AXNode)*
 
 New document root node.
 
@@ -468,6 +503,6 @@ New document root node.
 
 The nodesUpdated event is sent every time a previously requested node has changed the in tree.
 
-#### nodes*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`AXNode`](#nodriver.cdp.accessibility.AXNode)]*
+#### nodes *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[AXNode](#nodriver.cdp.accessibility.AXNode)]*
 
 Updated node data.

@@ -46,7 +46,7 @@ you use the event’s attributes.
 
 Fired when remote debugging connection is about to be terminated. Contains detach reason.
 
-#### reason*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### reason *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The reason why connection has been terminated.
 
@@ -57,3 +57,9 @@ Fired when debugging target has crashed
 ### *class* TargetReloadedAfterCrash
 
 Fired when debugging target has reloaded after crash
+
+### *class* WorkerScriptLoaded
+
+**EXPERIMENTAL**
+
+Fired on worker targets when main worker script and any imported scripts have been evaluated.

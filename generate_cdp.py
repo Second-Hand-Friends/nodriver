@@ -55,6 +55,13 @@ from .util import event_class, T_JSON_DICT
 
 current_version = ""
 
+# Pinned Chrome DevTools Protocol snapshots (BSD-3-Clause; see
+# third_party/devtools-protocol/LICENSE).
+PROTOCOL_SOURCE_SHA = "f2237752b5ce470fd8d682d0ec550c2769a8ff40"
+PROTOCOL_VENDOR_DIR = Path(__file__).parent / "third_party" / "devtools-protocol"
+PROTOCOL_BROWSER_JSON = PROTOCOL_VENDOR_DIR / "browser_protocol.json"
+PROTOCOL_JS_JSON = PROTOCOL_VENDOR_DIR / "js_protocol.json"
+
 BACKTICK_RE = re.compile(r"`([^`]+)`(\w+)?")
 
 
@@ -200,6 +207,7 @@ class CdpProperty:
     experimental: bool
     deprecated: bool
     domain: str
+    json_default: typing.Any = None
 
     @property
     def py_name(self) -> str:
@@ -243,6 +251,13 @@ class CdpProperty:
             domain,
         )
 
+    def json_source(self, dict_: str) -> str:
+        if self.json_default is not None:
+            return f"{dict_}.get('{self.name}', {self.json_default!r})"
+        if self.optional:
+            return f"{dict_}.get('{self.name}', None)"
+        return f"{dict_}['{self.name}']"
+
     def generate_decl(self) -> str:
         """Generate the code that declares this property."""
         code = inline_doc(self.description)
@@ -281,23 +296,22 @@ class CdpProperty:
     def generate_from_json(self, dict_) -> str:
         """Generate the code that creates an instance from a JSON dict named
         ``dict_``."""
+        source = self.json_source(dict_)
         if self.items:
             if self.items.ref:
                 py_ref = ref_to_python_domain(self.items.ref, self.domain)
-                expr = f"[{py_ref}.from_json(i) for i in {dict_}['{self.name}']]"
+                expr = f"[{py_ref}.from_json(i) for i in {source}]"
             else:
                 cons = CdpPrimitiveType.get_constructor(self.items.type, "i")
-                expr = f"[{cons} for i in {dict_}['{self.name}']]"
+                expr = f"[{cons} for i in {source}]"
         else:
             if self.ref:
                 py_ref = ref_to_python_domain(self.ref, self.domain)
-                expr = f"{py_ref}.from_json({dict_}['{self.name}'])"
+                expr = f"{py_ref}.from_json({source})"
             else:
-                expr = CdpPrimitiveType.get_constructor(
-                    self.type, f"{dict_}['{self.name}']"
-                )
-        if self.optional:
-            expr = f"{expr} if {dict_}.get('{self.name}', None) is not None else None"
+                expr = CdpPrimitiveType.get_constructor(self.type, source)
+        if self.optional and self.json_default is None:
+            expr = f"{expr} if {source} is not None else None"
         return expr
 
 
@@ -979,7 +993,7 @@ def parse(json_path, output_path):
     :returns: a list of CDP domain objects
     """
     global current_version
-    with json_path.open() as json_file:
+    with json_path.open(encoding="utf-8") as json_file:
         schema = json.load(json_file)
     version = schema["version"]
     assert (version["major"], version["minor"]) == ("1", "3")
@@ -998,7 +1012,7 @@ def generate_init(init_path, domains):
     :param list[tuple] modules: a list of modules each represented as tuples
         of (name, list_of_exported_symbols)
     """
-    with init_path.open("w") as init_file:
+    with init_path.open("w", encoding="utf-8") as init_file:
         init_file.write(INIT_HEADER)
         init_file.write(
             "from . import ({})".format(", ".join(domain.module for domain in domains))
@@ -1018,7 +1032,7 @@ def generate_docs(docs_path, domains):
     # Generate document for each domain
     for domain in domains:
         doc = docs_path / f"{domain.module}.rst"
-        with doc.open("w") as f:
+        with doc.open("w", encoding="utf-8") as f:
             f.write(domain.generate_sphinx())
 
 
@@ -1026,7 +1040,9 @@ def fix_protocol_spec(domains):
     """Fixes following errors in the official CDP spec:
     1. DOM includes an erroneous $ref that refers to itself.
     2. Page includes an event with an extraneous backtick in the description.
-    3. Network.Cookie.expires is optional because sometimes its value can be null."""
+    3. Network.Cookie.expires is optional because sometimes its value can be null.
+    4. Network.Cookie field defaults reflect real browser payloads.
+    """
     for domain in domains:
         if domain.domain == "DOM":
             for cmd in domain.commands:
@@ -1043,84 +1059,113 @@ def fix_protocol_spec(domains):
         elif domain.domain == "Network":
             for _type in domain.types:
                 if _type.id == "Cookie":
+                    has_same_party = False
                     for prop in _type.properties:
+                        if prop.name == "sameParty":
+                            has_same_party = True
+                            prop.json_default = False
+                            continue
                         if prop.name == "expires":
                             prop.optional = True
-                            break
+                            if prop.description:
+                                prop.description = prop.description.replace(
+                                    "�Inf", "±Inf"
+                                )
+                        elif prop.name == "sourceScheme":
+                            prop.json_default = "Unset"
+                        elif prop.name == "sourcePort":
+                            prop.json_default = -1
+                    if not has_same_party:
+                        same_party = CdpProperty(
+                            "sameParty",
+                            "True if cookie is SameParty.",
+                            "boolean",
+                            None,
+                            [],
+                            None,
+                            False,
+                            False,
+                            False,
+                            "Network",
+                            False,
+                        )
+                        for index, prop in enumerate(_type.properties):
+                            if prop.name == "priority":
+                                _type.properties.insert(index + 1, same_party)
+                                break
+                        else:
+                            _type.properties.append(same_party)
 
 
 def selfgen():
     """Generate CDP types and docs for ourselves"""
     here = Path(__file__).parent.resolve()
 
-    json_paths = [
-        here / "browser_protocol.json",
-        here / "js_protocol.json",
-    ]
-    for p in json_paths:
-        if not p.exists():
-            dl_file(p.name)
+    json_paths = [PROTOCOL_BROWSER_JSON, PROTOCOL_JS_JSON]
+    missing = [p for p in json_paths if not p.exists()]
+    if missing:
+        raise FileNotFoundError(
+            "missing vendored protocol snapshots: "
+            + ", ".join(str(path) for path in missing)
+        )
 
     output_path = here / "nodriver" / "cdp"
     docs_path = here / "docs" / "nodriver" / "cdp"
 
     output_path.mkdir(exist_ok=True)
     docs_path.mkdir(exist_ok=True)
-    try:
-        # Parse domains
-        domains = list()
-        for json_path in json_paths:
-            logger.info("Parsing JSON file %s", json_path)
-            domains.extend(parse(json_path, output_path))
-        domains.sort(key=operator.attrgetter("domain"))
-        fix_protocol_spec(domains)
-        for domain in domains:
-            logger.info("Generating module: %s → %s.py", domain.domain, domain.module)
-            module_path = output_path / f"{domain.module}.py"
-            with module_path.open("w") as module_file:
-                module_file.write(domain.generate_code())
+    # Parse domains
+    domains = list()
+    for json_path in json_paths:
+        logger.info("Parsing JSON file %s", json_path)
+        domains.extend(parse(json_path, output_path))
+    domains.sort(key=operator.attrgetter("domain"))
+    fix_protocol_spec(domains)
+    for domain in domains:
+        logger.info("Generating module: %s → %s.py", domain.domain, domain.module)
+        module_path = output_path / f"{domain.module}.py"
+        with module_path.open("w", encoding="utf-8") as module_file:
+            module_file.write(domain.generate_code())
 
-        generate_init(output_path / "__init__.py", domains)
-        generate_docs(docs_path, domains)
-        (output_path / "README.md").write_text(GENERATED_PACKAGE_NOTICE)
-        (output_path / "py.typed").touch()
+    generate_init(output_path / "__init__.py", domains)
+    generate_docs(docs_path, domains)
+    (output_path / "README.md").write_text(GENERATED_PACKAGE_NOTICE, encoding="utf-8")
+    (output_path / "py.typed").touch()
 
-        from textwrap import dedent
+    from textwrap import dedent
 
-        util_path = output_path / "util.py"
-        util_path.unlink(missing_ok=True)
-        util_path.touch(exist_ok=True)
-        util_path.write_text(
-            dedent(
-                """
-            import typing
-
-            T_JSON_DICT = typing.Dict[str, typing.Any]
-            _event_parsers = dict()
-
-
-            def event_class(method):
-                ''' A decorator that registers a class as an event class. '''
-                def decorate(cls):
-                    _event_parsers[method] = cls
-                    return cls
-                return decorate
-
-
-            def parse_json_event(json: T_JSON_DICT) -> typing.Any:
-                ''' Parse a JSON dictionary into a CDP event. '''
-                return _event_parsers[json['method']].from_json(json['params'])
+    util_path = output_path / "util.py"
+    util_path.unlink(missing_ok=True)
+    util_path.touch(exist_ok=True)
+    util_path.write_text(
+        dedent(
             """
-            )
-        )
+        import typing
 
-    finally:
-        list(map(lambda x: x.unlink(), json_paths))
+        T_JSON_DICT = typing.Dict[str, typing.Any]
+        _event_parsers = dict()
+
+
+        def event_class(method):
+            ''' A decorator that registers a class as an event class. '''
+            def decorate(cls):
+                _event_parsers[method] = cls
+                return cls
+            return decorate
+
+
+        def parse_json_event(json: T_JSON_DICT) -> typing.Any:
+            ''' Parse a JSON dictionary into a CDP event. '''
+            return _event_parsers[json['method']].from_json(json['params'])
+        """
+        ),
+        encoding="utf-8",
+    )
 
 
 def dl_file(filename, path=None):
     urllib.request.urlretrieve(
-        f"https://raw.githubusercontent.com/ChromeDevTools/devtools-protocol/master/json/{filename}",
+        f"https://raw.githubusercontent.com/ChromeDevTools/devtools-protocol/{PROTOCOL_SOURCE_SHA}/json/{filename}",
         filename=path or filename,
     )
 
@@ -1137,7 +1182,7 @@ def dl_file(filename, path=None):
 #     parser = ArgumentParser(
 #         usage='%(prog)s <arguments>',
 #         description='Generate Python types for the Chrome Devtools Protocol (CDP) specification.',
-#         epilog='JSON files for the CDP spec can be found at https://github.com/ChromeDevTools/devtools-protocol/tree/master/json'
+#         epilog='Vendored JSON files for the CDP spec live in third_party/devtools-protocol/'
 #     )
 #     parser.add_argument(
 #         '--browser-protocol',

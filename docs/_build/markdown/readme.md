@@ -1,6 +1,6 @@
 # NODRIVER
 
-## for docs click [here](https://ultrafunkamsterdam.github.io/nodriver)
+## for docs click [here](https://second-hand-friends.github.io/nodriver/)
 
 **This package provides next level webscraping and browser automation
 using a relatively simple interface.**

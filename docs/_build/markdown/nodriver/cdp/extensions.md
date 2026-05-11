@@ -16,7 +16,7 @@ yourself. Instead, the API creates objects for you as return
 values from commands, and then you can use those objects as
 arguments to other commands.
 
-### *class* StorageArea(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* StorageArea(\*values)
 
 Storage areas.
 
@@ -27,6 +27,30 @@ Storage areas.
 #### SYNC *= 'sync'*
 
 #### MANAGED *= 'managed'*
+
+### *class* ExtensionInfo(id_, name, version, path, enabled)
+
+Detailed information about an extension.
+
+#### id_ *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
+
+Extension id.
+
+#### name *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
+
+Extension name.
+
+#### version *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
+
+Extension version.
+
+#### path *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
+
+The path from which the extension was loaded.
+
+#### enabled *: [bool](https://docs.python.org/3/library/functions.html#bool)*
+
+Extension enabled status.
 
 ## Commands
 
@@ -49,6 +73,14 @@ Clears extension storage in the given `storageArea`.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
+### get_extensions()
+
+Gets a list of all unpacked extensions.
+
+* **Return type:**
+  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`ExtensionInfo`](#nodriver.cdp.extensions.ExtensionInfo)]]
+* **Returns:**
+
 ### get_storage_items(id_, storage_area, keys=None)
 
 Gets data from extension storage in the given `storageArea`. If `keys` is
@@ -57,21 +89,20 @@ specified, these are used to filter the result.
 * **Parameters:**
   * **id** – ID of extension.
   * **storage_area** ([`StorageArea`](#nodriver.cdp.extensions.StorageArea)) – StorageArea to retrieve data from.
-  * **keys** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]]) – *(Optional)* Keys to retrieve.
+  * **keys** ([`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)] | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Keys to retrieve.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`dict`](https://docs.python.org/3/library/stdtypes.html#dict)]
 * **Returns:**
 
-### load_unpacked(path)
+### load_unpacked(path, enable_in_incognito=None)
 
 Installs an unpacked extension from the filesystem similar to
 –load-extension CLI flags. Returns extension ID once the extension
-has been installed. Available if the client is connected using the
-–remote-debugging-pipe flag and the –enable-unsafe-extension-debugging
-flag is set.
+has been installed.
 
 * **Parameters:**
-  **path** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – Absolute file path.
+  * **path** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – Absolute file path.
+  * **enable_in_incognito** ([`bool`](https://docs.python.org/3/library/functions.html#bool) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Enable the extension in incognito
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`str`](https://docs.python.org/3/library/stdtypes.html#str)]
 * **Returns:**
@@ -100,11 +131,19 @@ will be merged with existing values in the storage area.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
+### trigger_action(id_, target_id)
+
+Runs an extension default action.
+
+* **Parameters:**
+  * **id** – Extension id.
+  * **target_id** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – A tab target ID to trigger the default extension action on.
+* **Return type:**
+  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
+
 ### uninstall(id_)
 
 Uninstalls an unpacked extension (others not supported) from the profile.
-Available if the client is connected using the –remote-debugging-pipe flag
-and the –enable-unsafe-extension-debugging.
 
 * **Parameters:**
   **id** – Extension id.

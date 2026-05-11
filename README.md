@@ -7,7 +7,7 @@ NODRIVER
 * **This is the official successor of the** [Undetected-Chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver/) **python package.**
 * **No more webdriver, no more selenium**
 
-### for docs click [here](https://ultrafunkamsterdam.github.io/nodriver)
+### for docs click [here](https://second-hand-friends.github.io/nodriver/)
 
 Direct communication provides even better resistance against web applicatinon firewalls (WAF’s), while
 performance gets a massive boost.
@@ -65,7 +65,7 @@ what is new
 
 ### ```tab.xpath(selector, timeout=2.5)```
 find nodes using xpath selector!
-see [tab xpath in the api docs](https://ultrafunkamsterdam.github.io/nodriver/nodriver/classes/tab.html#nodriver.Tab.xpath)
+see [tab xpath in the api docs](https://second-hand-friends.github.io/nodriver/nodriver/classes/tab.html#nodriver.Tab.xpath)
 
 
 ### ```tab.cf_verify()```

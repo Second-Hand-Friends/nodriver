@@ -15,7 +15,7 @@ arguments to other commands.
 
 An internal certificate ID value.
 
-### *class* MixedContentType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* MixedContentType(\*values)
 
 A description of mixed content (HTTP resources on HTTPS pages), as defined by
 [https://www.w3.org/TR/mixed-content/#categories](https://www.w3.org/TR/mixed-content/#categories)
@@ -26,7 +26,7 @@ A description of mixed content (HTTP resources on HTTPS pages), as defined by
 
 #### NONE *= 'none'*
 
-### *class* SecurityState(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* SecurityState(\*values)
 
 The security level of a page or resource.
 
@@ -46,79 +46,79 @@ The security level of a page or resource.
 
 Details about the security state of the page certificate.
 
-#### protocol*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### protocol *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Protocol name (e.g. “TLS 1.2” or “QUIC”).
 
-#### key_exchange*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### key_exchange *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Key Exchange used by the connection, or the empty string if not applicable.
 
-#### cipher*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### cipher *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Cipher name.
 
-#### certificate*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### certificate *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
 Page certificate.
 
-#### subject_name*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### subject_name *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Certificate subject name.
 
-#### issuer*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### issuer *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Name of the issuing CA.
 
-#### valid_from*: [`TimeSinceEpoch`](network.md#nodriver.cdp.network.TimeSinceEpoch)*
+#### valid_from *: [TimeSinceEpoch](network.md#nodriver.cdp.network.TimeSinceEpoch)*
 
 Certificate valid from date.
 
-#### valid_to*: [`TimeSinceEpoch`](network.md#nodriver.cdp.network.TimeSinceEpoch)*
+#### valid_to *: [TimeSinceEpoch](network.md#nodriver.cdp.network.TimeSinceEpoch)*
 
 Certificate valid to (expiration) date
 
-#### certificate_has_weak_signature*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### certificate_has_weak_signature *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 True if the certificate uses a weak signature algorithm.
 
-#### certificate_has_sha1_signature*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### certificate_has_sha1_signature *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 True if the certificate has a SHA1 signature in the chain.
 
-#### modern_ssl*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### modern_ssl *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 True if modern SSL
 
-#### obsolete_ssl_protocol*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### obsolete_ssl_protocol *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 True if the connection is using an obsolete SSL protocol.
 
-#### obsolete_ssl_key_exchange*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### obsolete_ssl_key_exchange *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 True if the connection is using an obsolete SSL key exchange.
 
-#### obsolete_ssl_cipher*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### obsolete_ssl_cipher *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 True if the connection is using an obsolete SSL cipher.
 
-#### obsolete_ssl_signature*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### obsolete_ssl_signature *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 True if the connection is using an obsolete SSL signature.
 
-#### key_exchange_group*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### key_exchange_group *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 (EC)DH group used by the connection, if applicable.
 
-#### mac*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### mac *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 TLS MAC. Note that AEAD ciphers do not have separate MACs.
 
-#### certificate_network_error*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### certificate_network_error *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The highest priority network error code, if the certificate has an error.
 
-### *class* SafetyTipStatus(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* SafetyTipStatus(\*values)
 
 #### BAD_REPUTATION *= 'badReputation'*
 
@@ -126,11 +126,11 @@ The highest priority network error code, if the certificate has an error.
 
 ### *class* SafetyTipInfo(safety_tip_status, safe_url=None)
 
-#### safety_tip_status*: [`SafetyTipStatus`](#nodriver.cdp.security.SafetyTipStatus)*
+#### safety_tip_status *: [SafetyTipStatus](#nodriver.cdp.security.SafetyTipStatus)*
 
 Describes whether the page triggers any safety tips or reputation warnings. Default is unknown.
 
-#### safe_url*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### safe_url *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The URL the safety tip suggested (“Did you mean?”). Only filled in for lookalike matches.
 
@@ -138,19 +138,19 @@ The URL the safety tip suggested (“Did you mean?”). Only filled in for looka
 
 Security state information about the page.
 
-#### security_state*: [`SecurityState`](#nodriver.cdp.security.SecurityState)*
+#### security_state *: [SecurityState](#nodriver.cdp.security.SecurityState)*
 
 The security level of the page.
 
-#### security_state_issue_ids*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### security_state_issue_ids *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
 Array of security state issues ids.
 
-#### certificate_security_state*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`CertificateSecurityState`](#nodriver.cdp.security.CertificateSecurityState)]* *= None*
+#### certificate_security_state *: [CertificateSecurityState](#nodriver.cdp.security.CertificateSecurityState) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Security state details about the page certificate.
 
-#### safety_tip_info*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SafetyTipInfo`](#nodriver.cdp.security.SafetyTipInfo)]* *= None*
+#### safety_tip_info *: [SafetyTipInfo](#nodriver.cdp.security.SafetyTipInfo) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The type of Safety Tip triggered on the page. Note that this field will be set even if the Safety Tip UI was not actually shown.
 
@@ -158,31 +158,31 @@ The type of Safety Tip triggered on the page. Note that this field will be set e
 
 An explanation of an factor contributing to the security state.
 
-#### security_state*: [`SecurityState`](#nodriver.cdp.security.SecurityState)*
+#### security_state *: [SecurityState](#nodriver.cdp.security.SecurityState)*
 
 Security state representing the severity of the factor being explained.
 
-#### title*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### title *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Title describing the type of factor.
 
-#### summary*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### summary *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Short phrase describing the type of factor.
 
-#### description*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### description *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Full text explanation of the factor.
 
-#### mixed_content_type*: [`MixedContentType`](#nodriver.cdp.security.MixedContentType)*
+#### mixed_content_type *: [MixedContentType](#nodriver.cdp.security.MixedContentType)*
 
 The type of mixed content described by the explanation.
 
-#### certificate*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### certificate *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
 Page certificate.
 
-#### recommendations*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]]* *= None*
+#### recommendations *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[str](https://docs.python.org/3/library/stdtypes.html#str)] | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Recommendations to fix any issues.
 
@@ -190,35 +190,35 @@ Recommendations to fix any issues.
 
 Information about insecure content on the page.
 
-#### ran_mixed_content*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### ran_mixed_content *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 Always false.
 
-#### displayed_mixed_content*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### displayed_mixed_content *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 Always false.
 
-#### contained_mixed_form*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### contained_mixed_form *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 Always false.
 
-#### ran_content_with_cert_errors*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### ran_content_with_cert_errors *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 Always false.
 
-#### displayed_content_with_cert_errors*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### displayed_content_with_cert_errors *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 Always false.
 
-#### ran_insecure_content_style*: [`SecurityState`](#nodriver.cdp.security.SecurityState)*
+#### ran_insecure_content_style *: [SecurityState](#nodriver.cdp.security.SecurityState)*
 
 Always set to unknown.
 
-#### displayed_insecure_content_style*: [`SecurityState`](#nodriver.cdp.security.SecurityState)*
+#### displayed_insecure_content_style *: [SecurityState](#nodriver.cdp.security.SecurityState)*
 
 Always set to unknown.
 
-### *class* CertificateErrorAction(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* CertificateErrorAction(\*values)
 
 The action to take when a certificate error occurs. continue will continue processing the
 request and cancel will cancel the request.
@@ -262,11 +262,12 @@ Deprecated since version 1.3.
 * **Parameters:**
   * **event_id** ([`int`](https://docs.python.org/3/library/functions.html#int)) – The ID of the event.
   * **action** ([`CertificateErrorAction`](#nodriver.cdp.security.CertificateErrorAction)) – The action to take on the certificate error.
-* **Return type:**
-  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 #### Deprecated
 Deprecated since version 1.3.
+
+* **Return type:**
+  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 ### set_ignore_certificate_errors(ignore)
 
@@ -287,11 +288,12 @@ Deprecated since version 1.3.
 
 * **Parameters:**
   **override** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) – If true, certificate errors will be overridden.
-* **Return type:**
-  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 #### Deprecated
 Deprecated since version 1.3.
+
+* **Return type:**
+  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 ## Events
 
@@ -309,15 +311,15 @@ certificate errors at the same time.
 #### Deprecated
 Deprecated since version 1.3.
 
-#### event_id*: [`int`](https://docs.python.org/3/library/functions.html#int)*
+#### event_id *: [int](https://docs.python.org/3/library/functions.html#int)*
 
 The ID of the event.
 
-#### error_type*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### error_type *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The type of the error.
 
-#### request_url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### request_url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The url that was requested.
 
@@ -327,7 +329,7 @@ The url that was requested.
 
 The security state of the page changed.
 
-#### visible_security_state*: [`VisibleSecurityState`](#nodriver.cdp.security.VisibleSecurityState)*
+#### visible_security_state *: [VisibleSecurityState](#nodriver.cdp.security.VisibleSecurityState)*
 
 Security state information about the page.
 
@@ -338,23 +340,23 @@ The security state of the page changed. No longer being sent.
 #### Deprecated
 Deprecated since version 1.3.
 
-#### security_state*: [`SecurityState`](#nodriver.cdp.security.SecurityState)*
+#### security_state *: [SecurityState](#nodriver.cdp.security.SecurityState)*
 
 Security state.
 
-#### scheme_is_cryptographic*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### scheme_is_cryptographic *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 True if the page was loaded over cryptographic transport such as HTTPS.
 
-#### explanations*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`SecurityStateExplanation`](#nodriver.cdp.security.SecurityStateExplanation)]*
+#### explanations *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[SecurityStateExplanation](#nodriver.cdp.security.SecurityStateExplanation)]*
 
 Previously a list of explanations for the security state. Now always
 empty.
 
-#### insecure_content_status*: [`InsecureContentStatus`](#nodriver.cdp.security.InsecureContentStatus)*
+#### insecure_content_status *: [InsecureContentStatus](#nodriver.cdp.security.InsecureContentStatus)*
 
 Information about insecure content on the page.
 
-#### summary*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### summary *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 Overrides user-visible description of the state. Always omitted.

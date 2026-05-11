@@ -20,7 +20,7 @@ Unique request identifier.
 Note that this does not identify individual HTTP requests that are part of
 a network request.
 
-### *class* RequestStage(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* RequestStage(\*values)
 
 Stages of the request to handle. Request will intercept before the request is
 sent. Response will intercept after the response is received (but before response
@@ -32,16 +32,16 @@ body is received).
 
 ### *class* RequestPattern(url_pattern=None, resource_type=None, request_stage=None)
 
-#### url_pattern*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### url_pattern *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Wildcards (`'*'` -> zero or more, `'?'` -> exactly one) are allowed. Escape character is
 backslash. Omitting is equivalent to `"*"`.
 
-#### resource_type*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ResourceType`](network.md#nodriver.cdp.network.ResourceType)]* *= None*
+#### resource_type *: [ResourceType](network.md#nodriver.cdp.network.ResourceType) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 If set, only requests for matching resource types will be intercepted.
 
-#### request_stage*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RequestStage`](#nodriver.cdp.fetch.RequestStage)]* *= None*
+#### request_stage *: [RequestStage](#nodriver.cdp.fetch.RequestStage) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Stage at which to begin intercepting requests. Default is Request.
 
@@ -49,27 +49,27 @@ Stage at which to begin intercepting requests. Default is Request.
 
 Response HTTP header entry
 
-#### name*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### name *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### value*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### value *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 ### *class* AuthChallenge(origin, scheme, realm, source=None)
 
 Authorization challenge for HTTP status code 401 or 407.
 
-#### origin*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### origin *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Origin of the challenger.
 
-#### scheme*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### scheme *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The authentication scheme used, such as basic or digest
 
-#### realm*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### realm *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The realm of the challenge. May be empty.
 
-#### source*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### source *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Source of the authentication challenge.
 
@@ -77,18 +77,18 @@ Source of the authentication challenge.
 
 Response to an AuthChallenge.
 
-#### response*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### response *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The decision on what to do in response to the authorization challenge.  Default means
 deferring to the default behavior of the net stack, which will likely either the Cancel
 authentication or display a popup dialog box.
 
-#### username*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### username *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The username to provide, possibly empty. Should only be set if response is
 ProvideCredentials.
 
-#### password*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### password *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The password to provide, possibly empty. Should only be set if response is
 ProvideCredentials.
@@ -110,11 +110,11 @@ Continues the request, optionally modifying some of its parameters.
 
 * **Parameters:**
   * **request_id** ([`RequestId`](#nodriver.cdp.fetch.RequestId)) – An id the client received in requestPaused event.
-  * **url** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* If set, the request url will be modified in a way that’s not observable by page.
-  * **method** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* If set, the request method is overridden.
-  * **post_data** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* If set, overrides the post data in the request. (Encoded as a base64 string when passed over JSON)
-  * **headers** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`HeaderEntry`](#nodriver.cdp.fetch.HeaderEntry)]]) – *(Optional)* If set, overrides the request headers. Note that the overrides do not extend to subsequent redirect hops, if a redirect happens. Another override may be applied to a different request produced by a redirect.
-  * **intercept_response** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`bool`](https://docs.python.org/3/library/functions.html#bool)]) – **(EXPERIMENTAL)** *(Optional)* If set, overrides response interception behavior for this request.
+  * **url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* If set, the request url will be modified in a way that’s not observable by page.
+  * **method** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* If set, the request method is overridden.
+  * **post_data** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* If set, overrides the post data in the request. (Encoded as a base64 string when passed over JSON)
+  * **headers** ([`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`HeaderEntry`](#nodriver.cdp.fetch.HeaderEntry)] | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* If set, overrides the request headers. Note that the overrides do not extend to subsequent redirect hops, if a redirect happens. Another override may be applied to a different request produced by a redirect.
+  * **intercept_response** ([`bool`](https://docs.python.org/3/library/functions.html#bool) | [`None`](https://docs.python.org/3/library/constants.html#None)) – **(EXPERIMENTAL)**  *(Optional)* If set, overrides response interception behavior for this request.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -128,10 +128,10 @@ must be present.
 
 * **Parameters:**
   * **request_id** ([`RequestId`](#nodriver.cdp.fetch.RequestId)) – An id the client received in requestPaused event.
-  * **response_code** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`int`](https://docs.python.org/3/library/functions.html#int)]) – *(Optional)* An HTTP response code. If absent, original response code will be used.
-  * **response_phrase** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* A textual representation of responseCode. If absent, a standard phrase matching responseCode is used.
-  * **response_headers** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`HeaderEntry`](#nodriver.cdp.fetch.HeaderEntry)]]) – *(Optional)* Response headers. If absent, original response headers will be used.
-  * **binary_response_headers** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* Alternative way of specifying response headers as a 0-separated series of name: value pairs. Prefer the above method unless you need to represent some non-UTF8 values that can’t be transmitted over the protocol as text. (Encoded as a base64 string when passed over JSON)
+  * **response_code** ([`int`](https://docs.python.org/3/library/functions.html#int) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* An HTTP response code. If absent, original response code will be used.
+  * **response_phrase** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* A textual representation of responseCode. If absent, a standard phrase matching responseCode is used.
+  * **response_headers** ([`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`HeaderEntry`](#nodriver.cdp.fetch.HeaderEntry)] | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Response headers. If absent, original response headers will be used.
+  * **binary_response_headers** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Alternative way of specifying response headers as a 0-separated series of name: value pairs. Prefer the above method unless you need to represent some non-UTF8 values that can’t be transmitted over the protocol as text. (Encoded as a base64 string when passed over JSON)
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -158,8 +158,8 @@ Enables issuing of requestPaused events. A request will be paused until client
 calls one of failRequest, fulfillRequest or continueRequest/continueWithAuth.
 
 * **Parameters:**
-  * **patterns** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`RequestPattern`](#nodriver.cdp.fetch.RequestPattern)]]) – *(Optional)* If specified, only requests matching any of these patterns will produce fetchRequested event and will be paused until clients response. If not set, all requests will be affected.
-  * **handle_auth_requests** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`bool`](https://docs.python.org/3/library/functions.html#bool)]) – *(Optional)* If true, authRequired events will be issued and requests will be paused expecting a call to continueWithAuth.
+  * **patterns** ([`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`RequestPattern`](#nodriver.cdp.fetch.RequestPattern)] | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* If specified, only requests matching any of these patterns will produce fetchRequested event and will be paused until clients response. If not set, all requests will be affected.
+  * **handle_auth_requests** ([`bool`](https://docs.python.org/3/library/functions.html#bool) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* If true, authRequired events will be issued and requests will be paused expecting a call to continueWithAuth.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -180,10 +180,10 @@ Provides response to the request.
 * **Parameters:**
   * **request_id** ([`RequestId`](#nodriver.cdp.fetch.RequestId)) – An id the client received in requestPaused event.
   * **response_code** ([`int`](https://docs.python.org/3/library/functions.html#int)) – An HTTP response code.
-  * **response_headers** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`HeaderEntry`](#nodriver.cdp.fetch.HeaderEntry)]]) – *(Optional)* Response headers.
-  * **binary_response_headers** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* Alternative way of specifying response headers as a 0-separated series of name: value pairs. Prefer the above method unless you need to represent some non-UTF8 values that can’t be transmitted over the protocol as text. (Encoded as a base64 string when passed over JSON)
-  * **body** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* A response body. If absent, original response body will be used if the request is intercepted at the response stage and empty body will be used if the request is intercepted at the request stage. (Encoded as a base64 string when passed over JSON)
-  * **response_phrase** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)* A textual representation of responseCode. If absent, a standard phrase matching responseCode is used.
+  * **response_headers** ([`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`HeaderEntry`](#nodriver.cdp.fetch.HeaderEntry)] | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Response headers.
+  * **binary_response_headers** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Alternative way of specifying response headers as a 0-separated series of name: value pairs. Prefer the above method unless you need to represent some non-UTF8 values that can’t be transmitted over the protocol as text. (Encoded as a base64 string when passed over JSON)
+  * **body** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* A response body. If absent, original response body will be used if the request is intercepted at the response stage and empty body will be used if the request is intercepted at the request stage. (Encoded as a base64 string when passed over JSON)
+  * **response_phrase** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* A textual representation of responseCode. If absent, a standard phrase matching responseCode is used.
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -229,7 +229,7 @@ Calling other methods that affect the request or disabling fetch
 domain before body is received results in an undefined behavior.
 
 * **Parameters:**
-  **request_id** ([`RequestId`](#nodriver.cdp.fetch.RequestId)) – 
+  **request_id** ([`RequestId`](#nodriver.cdp.fetch.RequestId))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`StreamHandle`](io.md#nodriver.cdp.io.StreamHandle)]
 * **Returns:**
@@ -254,44 +254,44 @@ of `responseStatusCode` (which is one of 301, 302, 303, 307, 308) along with
 presence of the `location` header. Requests resulting from a redirect will
 have `redirectedRequestId` field set.
 
-#### request_id*: [`RequestId`](#nodriver.cdp.fetch.RequestId)*
+#### request_id *: [RequestId](#nodriver.cdp.fetch.RequestId)*
 
 Each request the page makes will have a unique id.
 
-#### request*: [`Request`](network.md#nodriver.cdp.network.Request)*
+#### request *: [Request](network.md#nodriver.cdp.network.Request)*
 
 The details of the request.
 
-#### frame_id*: [`FrameId`](page.md#nodriver.cdp.page.FrameId)*
+#### frame_id *: [FrameId](page.md#nodriver.cdp.page.FrameId)*
 
 The id of the frame that initiated the request.
 
-#### resource_type*: [`ResourceType`](network.md#nodriver.cdp.network.ResourceType)*
+#### resource_type *: [ResourceType](network.md#nodriver.cdp.network.ResourceType)*
 
 How the requested resource will be used.
 
-#### response_error_reason*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ErrorReason`](network.md#nodriver.cdp.network.ErrorReason)]*
+#### response_error_reason *: [ErrorReason](network.md#nodriver.cdp.network.ErrorReason) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 Response error if intercepted at response stage.
 
-#### response_status_code*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`int`](https://docs.python.org/3/library/functions.html#int)]*
+#### response_status_code *: [int](https://docs.python.org/3/library/functions.html#int) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 Response code if intercepted at response stage.
 
-#### response_status_text*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### response_status_text *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 Response status text if intercepted at response stage.
 
-#### response_headers*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`HeaderEntry`](#nodriver.cdp.fetch.HeaderEntry)]]*
+#### response_headers *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[HeaderEntry](#nodriver.cdp.fetch.HeaderEntry)] | [None](https://docs.python.org/3/library/constants.html#None)*
 
 Response headers if intercepted at the response stage.
 
-#### network_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RequestId`](network.md#nodriver.cdp.network.RequestId)]*
+#### network_id *: [RequestId](network.md#nodriver.cdp.network.RequestId) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 If the intercepted request had a corresponding Network.requestWillBeSent event fired for it,
 then this networkId will be the same as the requestId present in the requestWillBeSent event.
 
-#### redirected_request_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RequestId`](#nodriver.cdp.fetch.RequestId)]*
+#### redirected_request_id *: [RequestId](#nodriver.cdp.fetch.RequestId) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 If the request is due to a redirect response from the server, the id of the request that
 has caused the redirect.
@@ -301,23 +301,23 @@ has caused the redirect.
 Issued when the domain is enabled with handleAuthRequests set to true.
 The request is paused until client responds with continueWithAuth.
 
-#### request_id*: [`RequestId`](#nodriver.cdp.fetch.RequestId)*
+#### request_id *: [RequestId](#nodriver.cdp.fetch.RequestId)*
 
 Each request the page makes will have a unique id.
 
-#### request*: [`Request`](network.md#nodriver.cdp.network.Request)*
+#### request *: [Request](network.md#nodriver.cdp.network.Request)*
 
 The details of the request.
 
-#### frame_id*: [`FrameId`](page.md#nodriver.cdp.page.FrameId)*
+#### frame_id *: [FrameId](page.md#nodriver.cdp.page.FrameId)*
 
 The id of the frame that initiated the request.
 
-#### resource_type*: [`ResourceType`](network.md#nodriver.cdp.network.ResourceType)*
+#### resource_type *: [ResourceType](network.md#nodriver.cdp.network.ResourceType)*
 
 How the requested resource will be used.
 
-#### auth_challenge*: [`AuthChallenge`](#nodriver.cdp.fetch.AuthChallenge)*
+#### auth_challenge *: [AuthChallenge](#nodriver.cdp.fetch.AuthChallenge)*
 
 Details of the Authorization Challenge encountered.
 If this is set, client should respond with continueRequest that

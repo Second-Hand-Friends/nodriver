@@ -20,21 +20,21 @@ arguments to other commands.
 
 Information about a cookie that is affected by an inspector issue.
 
-#### name*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### name *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The following three properties uniquely identify a cookie
 
-#### path*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### path *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### domain*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### domain *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 ### *class* AffectedRequest(url, request_id=None)
 
 Information about a request that is affected by an inspector issue.
 
-#### url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### request_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RequestId`](network.md#nodriver.cdp.network.RequestId)]* *= None*
+#### request_id *: [RequestId](network.md#nodriver.cdp.network.RequestId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The unique request id.
 
@@ -42,9 +42,9 @@ The unique request id.
 
 Information about the frame affected by an inspector issue.
 
-#### frame_id*: [`FrameId`](page.md#nodriver.cdp.page.FrameId)*
+#### frame_id *: [FrameId](page.md#nodriver.cdp.page.FrameId)*
 
-### *class* CookieExclusionReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* CookieExclusionReason(\*values)
 
 #### EXCLUDE_SAME_SITE_UNSPECIFIED_TREATED_AS_LAX *= 'ExcludeSameSiteUnspecifiedTreatedAsLax'*
 
@@ -53,10 +53,6 @@ Information about the frame affected by an inspector issue.
 #### EXCLUDE_SAME_SITE_LAX *= 'ExcludeSameSiteLax'*
 
 #### EXCLUDE_SAME_SITE_STRICT *= 'ExcludeSameSiteStrict'*
-
-#### EXCLUDE_INVALID_SAME_PARTY *= 'ExcludeInvalidSameParty'*
-
-#### EXCLUDE_SAME_PARTY_CROSS_PARTY_CONTEXT *= 'ExcludeSamePartyCrossPartyContext'*
 
 #### EXCLUDE_DOMAIN_NON_ASCII *= 'ExcludeDomainNonASCII'*
 
@@ -68,7 +64,7 @@ Information about the frame affected by an inspector issue.
 
 #### EXCLUDE_SCHEME_MISMATCH *= 'ExcludeSchemeMismatch'*
 
-### *class* CookieWarningReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* CookieWarningReason(\*values)
 
 #### WARN_SAME_SITE_UNSPECIFIED_CROSS_SITE_CONTEXT *= 'WarnSameSiteUnspecifiedCrossSiteContext'*
 
@@ -98,13 +94,13 @@ Information about the frame affected by an inspector issue.
 
 #### WARN_THIRD_PARTY_COOKIE_HEURISTIC *= 'WarnThirdPartyCookieHeuristic'*
 
-### *class* CookieOperation(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* CookieOperation(\*values)
 
 #### SET_COOKIE *= 'SetCookie'*
 
 #### READ_COOKIE *= 'ReadCookie'*
 
-### *class* InsightType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* InsightType(\*values)
 
 Represents the category of insight that a cookie issue falls under.
 
@@ -118,9 +114,9 @@ Represents the category of insight that a cookie issue falls under.
 
 Information about the suggested solution to a cookie issue.
 
-#### type_*: [`InsightType`](#nodriver.cdp.audits.InsightType)*
+#### type_ *: [InsightType](#nodriver.cdp.audits.InsightType)*
 
-#### table_entry_url*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### table_entry_url *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Link to table entry in third-party cookie migration readiness list.
 
@@ -130,35 +126,47 @@ This information is currently necessary, as the front-end has a difficult
 time finding a specific cookie. With this, we can convey specific error
 information without the cookie.
 
-#### cookie_warning_reasons*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`CookieWarningReason`](#nodriver.cdp.audits.CookieWarningReason)]*
+#### cookie_warning_reasons *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[CookieWarningReason](#nodriver.cdp.audits.CookieWarningReason)]*
 
-#### cookie_exclusion_reasons*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`CookieExclusionReason`](#nodriver.cdp.audits.CookieExclusionReason)]*
+#### cookie_exclusion_reasons *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[CookieExclusionReason](#nodriver.cdp.audits.CookieExclusionReason)]*
 
-#### operation*: [`CookieOperation`](#nodriver.cdp.audits.CookieOperation)*
+#### operation *: [CookieOperation](#nodriver.cdp.audits.CookieOperation)*
 
 Optionally identifies the site-for-cookies and the cookie url, which
 may be used by the front-end as additional context.
 
-#### cookie*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedCookie`](#nodriver.cdp.audits.AffectedCookie)]* *= None*
+#### cookie *: [AffectedCookie](#nodriver.cdp.audits.AffectedCookie) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 If AffectedCookie is not set then rawCookieLine contains the raw
 Set-Cookie header string. This hints at a problem where the
 cookie line is syntactically or semantically malformed in a way
 that no valid cookie could be created.
 
-#### raw_cookie_line*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### raw_cookie_line *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### site_for_cookies*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### site_for_cookies *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### cookie_url*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### cookie_url *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### request*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)]* *= None*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### insight*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`CookieIssueInsight`](#nodriver.cdp.audits.CookieIssueInsight)]* *= None*
+#### insight *: [CookieIssueInsight](#nodriver.cdp.audits.CookieIssueInsight) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The recommended solution to the issue.
 
-### *class* MixedContentResolutionStatus(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* PerformanceIssueType(\*values)
+
+#### DOCUMENT_COOKIE *= 'DocumentCookie'*
+
+### *class* PerformanceIssueDetails(performance_issue_type, source_code_location=None)
+
+Details for a performance issue.
+
+#### performance_issue_type *: [PerformanceIssueType](#nodriver.cdp.audits.PerformanceIssueType)*
+
+#### source_code_location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+### *class* MixedContentResolutionStatus(\*values)
 
 #### MIXED_CONTENT_BLOCKED *= 'MixedContentBlocked'*
 
@@ -166,7 +174,7 @@ The recommended solution to the issue.
 
 #### MIXED_CONTENT_WARNING *= 'MixedContentWarning'*
 
-### *class* MixedContentResourceType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* MixedContentResourceType(\*values)
 
 #### ATTRIBUTION_SRC *= 'AttributionSrc'*
 
@@ -228,35 +236,35 @@ The recommended solution to the issue.
 
 ### *class* MixedContentIssueDetails(resolution_status, insecure_url, main_resource_url, resource_type=None, request=None, frame=None)
 
-#### resolution_status*: [`MixedContentResolutionStatus`](#nodriver.cdp.audits.MixedContentResolutionStatus)*
+#### resolution_status *: [MixedContentResolutionStatus](#nodriver.cdp.audits.MixedContentResolutionStatus)*
 
 The way the mixed content issue is being resolved.
 
-#### insecure_url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### insecure_url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The unsafe http url causing the mixed content issue.
 
-#### main_resource_url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### main_resource_url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The url responsible for the call to an unsafe url.
 
-#### resource_type*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`MixedContentResourceType`](#nodriver.cdp.audits.MixedContentResourceType)]* *= None*
+#### resource_type *: [MixedContentResourceType](#nodriver.cdp.audits.MixedContentResourceType) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The type of resource causing the mixed content issue (css, js, iframe,
 form,…). Marked as optional because it is mapped to from
 blink::mojom::RequestContextType, which will be replaced
 by network::mojom::RequestDestination
 
-#### request*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)]* *= None*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The mixed content request.
 Does not always exist (e.g. for unsafe form submission urls).
 
-#### frame*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedFrame`](#nodriver.cdp.audits.AffectedFrame)]* *= None*
+#### frame *: [AffectedFrame](#nodriver.cdp.audits.AffectedFrame) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Optional because not every mixed content issue is necessarily linked to a frame.
 
-### *class* BlockedByResponseReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* BlockedByResponseReason(\*values)
 
 Enum indicating the reason a response has been blocked. These reasons are
 refinements of the net error BLOCKED_BY_RESPONSE.
@@ -283,21 +291,21 @@ Details for a request that has been blocked with the BLOCKED_BY_RESPONSE
 code. Currently only used for COEP/COOP, but may be extended to include
 some CSP errors in the future.
 
-#### request*: [`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest)*
 
-#### reason*: [`BlockedByResponseReason`](#nodriver.cdp.audits.BlockedByResponseReason)*
+#### reason *: [BlockedByResponseReason](#nodriver.cdp.audits.BlockedByResponseReason)*
 
-#### parent_frame*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedFrame`](#nodriver.cdp.audits.AffectedFrame)]* *= None*
+#### parent_frame *: [AffectedFrame](#nodriver.cdp.audits.AffectedFrame) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### blocked_frame*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedFrame`](#nodriver.cdp.audits.AffectedFrame)]* *= None*
+#### blocked_frame *: [AffectedFrame](#nodriver.cdp.audits.AffectedFrame) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-### *class* HeavyAdResolutionStatus(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* HeavyAdResolutionStatus(\*values)
 
 #### HEAVY_AD_BLOCKED *= 'HeavyAdBlocked'*
 
 #### HEAVY_AD_WARNING *= 'HeavyAdWarning'*
 
-### *class* HeavyAdReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* HeavyAdReason(\*values)
 
 #### NETWORK_TOTAL_LIMIT *= 'NetworkTotalLimit'*
 
@@ -307,19 +315,19 @@ some CSP errors in the future.
 
 ### *class* HeavyAdIssueDetails(resolution, reason, frame)
 
-#### resolution*: [`HeavyAdResolutionStatus`](#nodriver.cdp.audits.HeavyAdResolutionStatus)*
+#### resolution *: [HeavyAdResolutionStatus](#nodriver.cdp.audits.HeavyAdResolutionStatus)*
 
 The resolution status, either blocking the content or warning.
 
-#### reason*: [`HeavyAdReason`](#nodriver.cdp.audits.HeavyAdReason)*
+#### reason *: [HeavyAdReason](#nodriver.cdp.audits.HeavyAdReason)*
 
 The reason the ad was blocked, total network or cpu or peak cpu.
 
-#### frame*: [`AffectedFrame`](#nodriver.cdp.audits.AffectedFrame)*
+#### frame *: [AffectedFrame](#nodriver.cdp.audits.AffectedFrame)*
 
 The frame that was blocked.
 
-### *class* ContentSecurityPolicyViolationType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* ContentSecurityPolicyViolationType(\*values)
 
 #### K_INLINE_VIOLATION *= 'kInlineViolation'*
 
@@ -337,35 +345,35 @@ The frame that was blocked.
 
 ### *class* SourceCodeLocation(url, line_number, column_number, script_id=None)
 
-#### url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### line_number*: [`int`](https://docs.python.org/3/library/functions.html#int)*
+#### line_number *: [int](https://docs.python.org/3/library/functions.html#int)*
 
-#### column_number*: [`int`](https://docs.python.org/3/library/functions.html#int)*
+#### column_number *: [int](https://docs.python.org/3/library/functions.html#int)*
 
-#### script_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ScriptId`](runtime.md#nodriver.cdp.runtime.ScriptId)]* *= None*
+#### script_id *: [ScriptId](runtime.md#nodriver.cdp.runtime.ScriptId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ### *class* ContentSecurityPolicyIssueDetails(violated_directive, is_report_only, content_security_policy_violation_type, blocked_url=None, frame_ancestor=None, source_code_location=None, violating_node_id=None)
 
-#### violated_directive*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### violated_directive *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Specific directive that is violated, causing the CSP issue.
 
-#### is_report_only*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### is_report_only *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-#### content_security_policy_violation_type*: [`ContentSecurityPolicyViolationType`](#nodriver.cdp.audits.ContentSecurityPolicyViolationType)*
+#### content_security_policy_violation_type *: [ContentSecurityPolicyViolationType](#nodriver.cdp.audits.ContentSecurityPolicyViolationType)*
 
-#### blocked_url*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### blocked_url *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The url not included in allowed sources.
 
-#### frame_ancestor*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedFrame`](#nodriver.cdp.audits.AffectedFrame)]* *= None*
+#### frame_ancestor *: [AffectedFrame](#nodriver.cdp.audits.AffectedFrame) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### source_code_location*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)]* *= None*
+#### source_code_location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### violating_node_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]* *= None*
+#### violating_node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-### *class* SharedArrayBufferIssueType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* SharedArrayBufferIssueType(\*values)
 
 #### TRANSFER_ISSUE *= 'TransferIssue'*
 
@@ -376,48 +384,32 @@ The url not included in allowed sources.
 Details for a issue arising from an SAB being instantiated in, or
 transferred to a context that is not cross-origin isolated.
 
-#### source_code_location*: [`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)*
+#### source_code_location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation)*
 
-#### is_warning*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### is_warning *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-#### type_*: [`SharedArrayBufferIssueType`](#nodriver.cdp.audits.SharedArrayBufferIssueType)*
-
-### *class* LowTextContrastIssueDetails(violating_node_id, violating_node_selector, contrast_ratio, threshold_aa, threshold_aaa, font_size, font_weight)
-
-#### violating_node_id*: [`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)*
-
-#### violating_node_selector*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
-
-#### contrast_ratio*: [`float`](https://docs.python.org/3/library/functions.html#float)*
-
-#### threshold_aa*: [`float`](https://docs.python.org/3/library/functions.html#float)*
-
-#### threshold_aaa*: [`float`](https://docs.python.org/3/library/functions.html#float)*
-
-#### font_size*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
-
-#### font_weight*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### type_ *: [SharedArrayBufferIssueType](#nodriver.cdp.audits.SharedArrayBufferIssueType)*
 
 ### *class* CorsIssueDetails(cors_error_status, is_warning, request, location=None, initiator_origin=None, resource_ip_address_space=None, client_security_state=None)
 
 Details for a CORS related issue, e.g. a warning or error related to
 CORS RFC1918 enforcement.
 
-#### cors_error_status*: [`CorsErrorStatus`](network.md#nodriver.cdp.network.CorsErrorStatus)*
+#### cors_error_status *: [CorsErrorStatus](network.md#nodriver.cdp.network.CorsErrorStatus)*
 
-#### is_warning*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### is_warning *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-#### request*: [`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest)*
 
-#### location*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)]* *= None*
+#### location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### initiator_origin*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### initiator_origin *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### resource_ip_address_space*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`IPAddressSpace`](network.md#nodriver.cdp.network.IPAddressSpace)]* *= None*
+#### resource_ip_address_space *: [IPAddressSpace](network.md#nodriver.cdp.network.IPAddressSpace) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### client_security_state*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ClientSecurityState`](network.md#nodriver.cdp.network.ClientSecurityState)]* *= None*
+#### client_security_state *: [ClientSecurityState](network.md#nodriver.cdp.network.ClientSecurityState) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-### *class* AttributionReportingIssueType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* AttributionReportingIssueType(\*values)
 
 #### PERMISSION_POLICY_DISABLED *= 'PermissionPolicyDisabled'*
 
@@ -461,7 +453,7 @@ CORS RFC1918 enforcement.
 
 #### NAVIGATION_REGISTRATION_UNIQUE_SCOPE_ALREADY_SET *= 'NavigationRegistrationUniqueScopeAlreadySet'*
 
-### *class* SharedDictionaryError(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* SharedDictionaryError(\*values)
 
 #### USE_ERROR_CROSS_ORIGIN_NO_CORS_REQUEST *= 'UseErrorCrossOriginNoCorsRequest'*
 
@@ -485,9 +477,13 @@ CORS RFC1918 enforcement.
 
 #### WRITE_ERROR_INVALID_STRUCTURED_HEADER *= 'WriteErrorInvalidStructuredHeader'*
 
+#### WRITE_ERROR_INVALID_TTL_FIELD *= 'WriteErrorInvalidTTLField'*
+
 #### WRITE_ERROR_NAVIGATION_REQUEST *= 'WriteErrorNavigationRequest'*
 
 #### WRITE_ERROR_NO_MATCH_FIELD *= 'WriteErrorNoMatchField'*
+
+#### WRITE_ERROR_NON_INTEGER_TTL_FIELD *= 'WriteErrorNonIntegerTTLField'*
 
 #### WRITE_ERROR_NON_LIST_MATCH_DEST_FIELD *= 'WriteErrorNonListMatchDestField'*
 
@@ -509,7 +505,7 @@ CORS RFC1918 enforcement.
 
 #### WRITE_ERROR_UNSUPPORTED_TYPE *= 'WriteErrorUnsupportedType'*
 
-### *class* SRIMessageSignatureError(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* SRIMessageSignatureError(\*values)
 
 #### MISSING_SIGNATURE_HEADER *= 'MissingSignatureHeader'*
 
@@ -553,7 +549,7 @@ CORS RFC1918 enforcement.
 
 #### VALIDATION_FAILED_INTEGRITY_MISMATCH *= 'ValidationFailedIntegrityMismatch'*
 
-### *class* UnencodedDigestError(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* UnencodedDigestError(\*values)
 
 #### MALFORMED_DICTIONARY *= 'MalformedDictionary'*
 
@@ -563,66 +559,86 @@ CORS RFC1918 enforcement.
 
 #### INCORRECT_DIGEST_LENGTH *= 'IncorrectDigestLength'*
 
+### *class* ConnectionAllowlistError(\*values)
+
+#### INVALID_HEADER *= 'InvalidHeader'*
+
+#### MORE_THAN_ONE_LIST *= 'MoreThanOneList'*
+
+#### ITEM_NOT_INNER_LIST *= 'ItemNotInnerList'*
+
+#### INVALID_ALLOWLIST_ITEM_TYPE *= 'InvalidAllowlistItemType'*
+
+#### REPORTING_ENDPOINT_NOT_TOKEN *= 'ReportingEndpointNotToken'*
+
+#### INVALID_URL_PATTERN *= 'InvalidUrlPattern'*
+
 ### *class* AttributionReportingIssueDetails(violation_type, request=None, violating_node_id=None, invalid_parameter=None)
 
 Details for issues around “Attribution Reporting API” usage.
 Explainer: [https://github.com/WICG/attribution-reporting-api](https://github.com/WICG/attribution-reporting-api)
 
-#### violation_type*: [`AttributionReportingIssueType`](#nodriver.cdp.audits.AttributionReportingIssueType)*
+#### violation_type *: [AttributionReportingIssueType](#nodriver.cdp.audits.AttributionReportingIssueType)*
 
-#### request*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)]* *= None*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### violating_node_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]* *= None*
+#### violating_node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### invalid_parameter*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### invalid_parameter *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ### *class* QuirksModeIssueDetails(is_limited_quirks_mode, document_node_id, url, frame_id, loader_id)
 
 Details for issues about documents in Quirks Mode
 or Limited Quirks Mode that affects page layouting.
 
-#### is_limited_quirks_mode*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### is_limited_quirks_mode *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 If false, it means the document’s mode is “quirks”
 instead of “limited-quirks”.
 
-#### document_node_id*: [`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)*
+#### document_node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId)*
 
-#### url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### frame_id*: [`FrameId`](page.md#nodriver.cdp.page.FrameId)*
+#### frame_id *: [FrameId](page.md#nodriver.cdp.page.FrameId)*
 
-#### loader_id*: [`LoaderId`](network.md#nodriver.cdp.network.LoaderId)*
+#### loader_id *: [LoaderId](network.md#nodriver.cdp.network.LoaderId)*
 
 ### *class* NavigatorUserAgentIssueDetails(url, location=None)
 
-#### url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### location*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)]* *= None*
+#### location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ### *class* SharedDictionaryIssueDetails(shared_dictionary_error, request)
 
-#### shared_dictionary_error*: [`SharedDictionaryError`](#nodriver.cdp.audits.SharedDictionaryError)*
+#### shared_dictionary_error *: [SharedDictionaryError](#nodriver.cdp.audits.SharedDictionaryError)*
 
-#### request*: [`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest)*
 
 ### *class* SRIMessageSignatureIssueDetails(error, signature_base, integrity_assertions, request)
 
-#### error*: [`SRIMessageSignatureError`](#nodriver.cdp.audits.SRIMessageSignatureError)*
+#### error *: [SRIMessageSignatureError](#nodriver.cdp.audits.SRIMessageSignatureError)*
 
-#### signature_base*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### signature_base *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### integrity_assertions*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### integrity_assertions *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
-#### request*: [`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest)*
 
 ### *class* UnencodedDigestIssueDetails(error, request)
 
-#### error*: [`UnencodedDigestError`](#nodriver.cdp.audits.UnencodedDigestError)*
+#### error *: [UnencodedDigestError](#nodriver.cdp.audits.UnencodedDigestError)*
 
-#### request*: [`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest)*
 
-### *class* GenericIssueErrorType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* ConnectionAllowlistIssueDetails(error, request)
+
+#### error *: [ConnectionAllowlistError](#nodriver.cdp.audits.ConnectionAllowlistError)*
+
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest)*
+
+### *class* GenericIssueErrorType(\*values)
 
 #### FORM_LABEL_FOR_NAME_ERROR *= 'FormLabelForNameError'*
 
@@ -634,11 +650,11 @@ instead of “limited-quirks”.
 
 #### FORM_EMPTY_ID_AND_NAME_ATTRIBUTES_FOR_INPUT_ERROR *= 'FormEmptyIdAndNameAttributesForInputError'*
 
-#### FORM_ARIA_LABELLED_BY_TO_NON_EXISTING_ID *= 'FormAriaLabelledByToNonExistingId'*
+#### FORM_ARIA_LABELLED_BY_TO_NON_EXISTING_ID_ERROR *= 'FormAriaLabelledByToNonExistingIdError'*
 
 #### FORM_INPUT_ASSIGNED_AUTOCOMPLETE_VALUE_TO_ID_OR_NAME_ATTRIBUTE_ERROR *= 'FormInputAssignedAutocompleteValueToIdOrNameAttributeError'*
 
-#### FORM_LABEL_HAS_NEITHER_FOR_NOR_NESTED_INPUT *= 'FormLabelHasNeitherForNorNestedInput'*
+#### FORM_LABEL_HAS_NEITHER_FOR_NOR_NESTED_INPUT_ERROR *= 'FormLabelHasNeitherForNorNestedInputError'*
 
 #### FORM_LABEL_FOR_MATCHES_NON_EXISTING_ID_ERROR *= 'FormLabelForMatchesNonExistingIdError'*
 
@@ -646,34 +662,54 @@ instead of “limited-quirks”.
 
 #### RESPONSE_WAS_BLOCKED_BY_ORB *= 'ResponseWasBlockedByORB'*
 
+#### NAVIGATION_ENTRY_MARKED_SKIPPABLE *= 'NavigationEntryMarkedSkippable'*
+
+#### BACK_UI_NAVIGATION_WOULD_SKIP_AD *= 'BackUINavigationWouldSkipAd'*
+
+#### AUTOFILL_AND_MANUAL_TEXT_POLICY_CONTROLLED_FEATURES_INFO *= 'AutofillAndManualTextPolicyControlledFeaturesInfo'*
+
+#### AUTOFILL_POLICY_CONTROLLED_FEATURE_INFO *= 'AutofillPolicyControlledFeatureInfo'*
+
+#### MANUAL_TEXT_POLICY_CONTROLLED_FEATURE_INFO *= 'ManualTextPolicyControlledFeatureInfo'*
+
+#### FORM_MODEL_CONTEXT_PARAMETER_MISSING_TITLE_AND_DESCRIPTION *= 'FormModelContextParameterMissingTitleAndDescription'*
+
+#### FORM_MODEL_CONTEXT_MISSING_TOOL_NAME *= 'FormModelContextMissingToolName'*
+
+#### FORM_MODEL_CONTEXT_MISSING_TOOL_DESCRIPTION *= 'FormModelContextMissingToolDescription'*
+
+#### FORM_MODEL_CONTEXT_REQUIRED_PARAMETER_MISSING_NAME *= 'FormModelContextRequiredParameterMissingName'*
+
+#### FORM_MODEL_CONTEXT_PARAMETER_MISSING_NAME *= 'FormModelContextParameterMissingName'*
+
 ### *class* GenericIssueDetails(error_type, frame_id=None, violating_node_id=None, violating_node_attribute=None, request=None)
 
 Depending on the concrete errorType, different properties are set.
 
-#### error_type*: [`GenericIssueErrorType`](#nodriver.cdp.audits.GenericIssueErrorType)*
+#### error_type *: [GenericIssueErrorType](#nodriver.cdp.audits.GenericIssueErrorType)*
 
 Issues with the same errorType are aggregated in the frontend.
 
-#### frame_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`FrameId`](page.md#nodriver.cdp.page.FrameId)]* *= None*
+#### frame_id *: [FrameId](page.md#nodriver.cdp.page.FrameId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### violating_node_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]* *= None*
+#### violating_node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### violating_node_attribute*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### violating_node_attribute *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### request*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)]* *= None*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ### *class* DeprecationIssueDetails(source_code_location, type_, affected_frame=None)
 
 This issue tracks information needed to print a deprecation message.
 [https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/third_party/blink/renderer/core/frame/deprecation/README.md](https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/third_party/blink/renderer/core/frame/deprecation/README.md)
 
-#### source_code_location*: [`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)*
+#### source_code_location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation)*
 
-#### type_*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### type_ *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 One of the deprecation names from third_party/blink/renderer/core/frame/deprecation/deprecation.json5
 
-#### affected_frame*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedFrame`](#nodriver.cdp.audits.AffectedFrame)]* *= None*
+#### affected_frame *: [AffectedFrame](#nodriver.cdp.audits.AffectedFrame) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ### *class* BounceTrackingIssueDetails(tracking_sites)
 
@@ -683,7 +719,7 @@ receive a user interaction. Note that in this context ‘site’ means eTLD+1.
 For example, if the URL `https://example.test:80/bounce` was in the
 redirect chain, the site reported would be `example.test`.
 
-#### tracking_sites*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### tracking_sites *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
 ### *class* CookieDeprecationMetadataIssueDetails(allowed_sites, opt_out_percentage, is_opt_out_top_level, operation)
 
@@ -693,15 +729,15 @@ Note that in this context ‘site’ means eTLD+1. For example, if the URL
 `https://example.test:80/web_page` was accessing cookies, the site reported
 would be `example.test`.
 
-#### allowed_sites*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### allowed_sites *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[str](https://docs.python.org/3/library/stdtypes.html#str)]*
 
-#### opt_out_percentage*: [`float`](https://docs.python.org/3/library/functions.html#float)*
+#### opt_out_percentage *: [float](https://docs.python.org/3/library/functions.html#float)*
 
-#### is_opt_out_top_level*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### is_opt_out_top_level *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-#### operation*: [`CookieOperation`](#nodriver.cdp.audits.CookieOperation)*
+#### operation *: [CookieOperation](#nodriver.cdp.audits.CookieOperation)*
 
-### *class* ClientHintIssueReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* ClientHintIssueReason(\*values)
 
 #### META_TAG_ALLOW_LIST_INVALID_ORIGIN *= 'MetaTagAllowListInvalidOrigin'*
 
@@ -709,9 +745,9 @@ would be `example.test`.
 
 ### *class* FederatedAuthRequestIssueDetails(federated_auth_request_issue_reason)
 
-#### federated_auth_request_issue_reason*: [`FederatedAuthRequestIssueReason`](#nodriver.cdp.audits.FederatedAuthRequestIssueReason)*
+#### federated_auth_request_issue_reason *: [FederatedAuthRequestIssueReason](#nodriver.cdp.audits.FederatedAuthRequestIssueReason)*
 
-### *class* FederatedAuthRequestIssueReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* FederatedAuthRequestIssueReason(\*values)
 
 Represents the failure reason when a federated authentication reason fails.
 Should be updated alongside RequestIdTokenStatus in
@@ -743,14 +779,6 @@ all cases except for success.
 #### CONFIG_INVALID_RESPONSE *= 'ConfigInvalidResponse'*
 
 #### CONFIG_INVALID_CONTENT_TYPE *= 'ConfigInvalidContentType'*
-
-#### CLIENT_METADATA_HTTP_NOT_FOUND *= 'ClientMetadataHttpNotFound'*
-
-#### CLIENT_METADATA_NO_RESPONSE *= 'ClientMetadataNoResponse'*
-
-#### CLIENT_METADATA_INVALID_RESPONSE *= 'ClientMetadataInvalidResponse'*
-
-#### CLIENT_METADATA_INVALID_CONTENT_TYPE *= 'ClientMetadataInvalidContentType'*
 
 #### IDP_NOT_POTENTIALLY_TRUSTWORTHY *= 'IdpNotPotentiallyTrustworthy'*
 
@@ -794,15 +822,11 @@ all cases except for success.
 
 #### SILENT_MEDIATION_FAILURE *= 'SilentMediationFailure'*
 
-#### THIRD_PARTY_COOKIES_BLOCKED *= 'ThirdPartyCookiesBlocked'*
-
 #### NOT_SIGNED_IN_WITH_IDP *= 'NotSignedInWithIdp'*
 
 #### MISSING_TRANSIENT_USER_ACTIVATION *= 'MissingTransientUserActivation'*
 
 #### REPLACED_BY_ACTIVE_MODE *= 'ReplacedByActiveMode'*
-
-#### INVALID_FIELDS_SPECIFIED *= 'InvalidFieldsSpecified'*
 
 #### RELYING_PARTY_ORIGIN_IS_OPAQUE *= 'RelyingPartyOriginIsOpaque'*
 
@@ -816,9 +840,9 @@ all cases except for success.
 
 ### *class* FederatedAuthUserInfoRequestIssueDetails(federated_auth_user_info_request_issue_reason)
 
-#### federated_auth_user_info_request_issue_reason*: [`FederatedAuthUserInfoRequestIssueReason`](#nodriver.cdp.audits.FederatedAuthUserInfoRequestIssueReason)*
+#### federated_auth_user_info_request_issue_reason *: [FederatedAuthUserInfoRequestIssueReason](#nodriver.cdp.audits.FederatedAuthUserInfoRequestIssueReason)*
 
-### *class* FederatedAuthUserInfoRequestIssueReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* FederatedAuthUserInfoRequestIssueReason(\*values)
 
 Represents the failure reason when a getUserInfo() call fails.
 Should be updated alongside FederatedAuthUserInfoRequestResult in
@@ -847,23 +871,23 @@ third_party/blink/public/mojom/devtools/inspector_issue.mojom.
 This issue tracks client hints related issues. It’s used to deprecate old
 features, encourage the use of new ones, and provide general guidance.
 
-#### source_code_location*: [`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)*
+#### source_code_location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation)*
 
-#### client_hint_issue_reason*: [`ClientHintIssueReason`](#nodriver.cdp.audits.ClientHintIssueReason)*
+#### client_hint_issue_reason *: [ClientHintIssueReason](#nodriver.cdp.audits.ClientHintIssueReason)*
 
 ### *class* FailedRequestInfo(url, failure_message, request_id=None)
 
-#### url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The URL that failed to load.
 
-#### failure_message*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### failure_message *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The failure message for the failed request.
 
-#### request_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RequestId`](network.md#nodriver.cdp.network.RequestId)]* *= None*
+#### request_id *: [RequestId](network.md#nodriver.cdp.network.RequestId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-### *class* PartitioningBlobURLInfo(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* PartitioningBlobURLInfo(\*values)
 
 #### BLOCKED_CROSS_PARTITION_FETCHING *= 'BlockedCrossPartitionFetching'*
 
@@ -871,15 +895,15 @@ The failure message for the failed request.
 
 ### *class* PartitioningBlobURLIssueDetails(url, partitioning_blob_url_info)
 
-#### url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 The BlobURL that failed to load.
 
-#### partitioning_blob_url_info*: [`PartitioningBlobURLInfo`](#nodriver.cdp.audits.PartitioningBlobURLInfo)*
+#### partitioning_blob_url_info *: [PartitioningBlobURLInfo](#nodriver.cdp.audits.PartitioningBlobURLInfo)*
 
 Additional information about the Partitioning Blob URL issue.
 
-### *class* ElementAccessibilityIssueReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* ElementAccessibilityIssueReason(\*values)
 
 #### DISALLOWED_SELECT_CHILD *= 'DisallowedSelectChild'*
 
@@ -897,13 +921,13 @@ Additional information about the Partitioning Blob URL issue.
 
 This issue warns about errors in the select or summary element content model.
 
-#### node_id*: [`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)*
+#### node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId)*
 
-#### element_accessibility_issue_reason*: [`ElementAccessibilityIssueReason`](#nodriver.cdp.audits.ElementAccessibilityIssueReason)*
+#### element_accessibility_issue_reason *: [ElementAccessibilityIssueReason](#nodriver.cdp.audits.ElementAccessibilityIssueReason)*
 
-#### has_disallowed_attributes*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### has_disallowed_attributes *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-### *class* StyleSheetLoadingIssueReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* StyleSheetLoadingIssueReason(\*values)
 
 #### LATE_IMPORT_RULE *= 'LateImportRule'*
 
@@ -913,19 +937,19 @@ This issue warns about errors in the select or summary element content model.
 
 This issue warns when a referenced stylesheet couldn’t be loaded.
 
-#### source_code_location*: [`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)*
+#### source_code_location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation)*
 
 Source code position that referenced the failing stylesheet.
 
-#### style_sheet_loading_issue_reason*: [`StyleSheetLoadingIssueReason`](#nodriver.cdp.audits.StyleSheetLoadingIssueReason)*
+#### style_sheet_loading_issue_reason *: [StyleSheetLoadingIssueReason](#nodriver.cdp.audits.StyleSheetLoadingIssueReason)*
 
 Reason why the stylesheet couldn’t be loaded.
 
-#### failed_request_info*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`FailedRequestInfo`](#nodriver.cdp.audits.FailedRequestInfo)]* *= None*
+#### failed_request_info *: [FailedRequestInfo](#nodriver.cdp.audits.FailedRequestInfo) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Contains additional info when the failure was due to a request.
 
-### *class* PropertyRuleIssueReason(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* PropertyRuleIssueReason(\*values)
 
 #### INVALID_SYNTAX *= 'InvalidSyntax'*
 
@@ -940,19 +964,19 @@ Contains additional info when the failure was due to a request.
 This issue warns about errors in property rules that lead to property
 registrations being ignored.
 
-#### source_code_location*: [`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)*
+#### source_code_location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation)*
 
 Source code position of the property rule.
 
-#### property_rule_issue_reason*: [`PropertyRuleIssueReason`](#nodriver.cdp.audits.PropertyRuleIssueReason)*
+#### property_rule_issue_reason *: [PropertyRuleIssueReason](#nodriver.cdp.audits.PropertyRuleIssueReason)*
 
 Reason why the property rule was discarded.
 
-#### property_value*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### property_value *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The value of the property rule property that failed to parse
 
-### *class* UserReidentificationIssueType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* UserReidentificationIssueType(\*values)
 
 #### BLOCKED_FRAME_NAVIGATION *= 'BlockedFrameNavigation'*
 
@@ -965,17 +989,113 @@ The value of the property rule property that failed to parse
 This issue warns about uses of APIs that may be considered misuse to
 re-identify users.
 
-#### type_*: [`UserReidentificationIssueType`](#nodriver.cdp.audits.UserReidentificationIssueType)*
+#### type_ *: [UserReidentificationIssueType](#nodriver.cdp.audits.UserReidentificationIssueType)*
 
-#### request*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AffectedRequest`](#nodriver.cdp.audits.AffectedRequest)]* *= None*
+#### request *: [AffectedRequest](#nodriver.cdp.audits.AffectedRequest) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Applies to BlockedFrameNavigation and BlockedSubresource issue types.
 
-#### source_code_location*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SourceCodeLocation`](#nodriver.cdp.audits.SourceCodeLocation)]* *= None*
+#### source_code_location *: [SourceCodeLocation](#nodriver.cdp.audits.SourceCodeLocation) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Applies to NoisedCanvasReadback issue type.
 
-### *class* InspectorIssueCode(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* PermissionElementIssueType(\*values)
+
+#### INVALID_TYPE *= 'InvalidType'*
+
+#### FENCED_FRAME_DISALLOWED *= 'FencedFrameDisallowed'*
+
+#### CSP_FRAME_ANCESTORS_MISSING *= 'CspFrameAncestorsMissing'*
+
+#### PERMISSIONS_POLICY_BLOCKED *= 'PermissionsPolicyBlocked'*
+
+#### PADDING_RIGHT_UNSUPPORTED *= 'PaddingRightUnsupported'*
+
+#### PADDING_BOTTOM_UNSUPPORTED *= 'PaddingBottomUnsupported'*
+
+#### INSET_BOX_SHADOW_UNSUPPORTED *= 'InsetBoxShadowUnsupported'*
+
+#### REQUEST_IN_PROGRESS *= 'RequestInProgress'*
+
+#### UNTRUSTED_EVENT *= 'UntrustedEvent'*
+
+#### REGISTRATION_FAILED *= 'RegistrationFailed'*
+
+#### TYPE_NOT_SUPPORTED *= 'TypeNotSupported'*
+
+#### INVALID_TYPE_ACTIVATION *= 'InvalidTypeActivation'*
+
+#### SECURITY_CHECKS_FAILED *= 'SecurityChecksFailed'*
+
+#### ACTIVATION_DISABLED *= 'ActivationDisabled'*
+
+#### GEOLOCATION_DEPRECATED *= 'GeolocationDeprecated'*
+
+#### INVALID_DISPLAY_STYLE *= 'InvalidDisplayStyle'*
+
+#### NON_OPAQUE_COLOR *= 'NonOpaqueColor'*
+
+#### LOW_CONTRAST *= 'LowContrast'*
+
+#### FONT_SIZE_TOO_SMALL *= 'FontSizeTooSmall'*
+
+#### FONT_SIZE_TOO_LARGE *= 'FontSizeTooLarge'*
+
+#### INVALID_SIZE_VALUE *= 'InvalidSizeValue'*
+
+### *class* PermissionElementIssueDetails(issue_type, type_=None, node_id=None, is_warning=None, permission_name=None, occluder_node_info=None, occluder_parent_node_info=None, disable_reason=None)
+
+This issue warns about improper usage of the <permission> element.
+
+#### issue_type *: [PermissionElementIssueType](#nodriver.cdp.audits.PermissionElementIssueType)*
+
+#### type_ *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+The value of the type attribute.
+
+#### node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+The node ID of the <permission> element.
+
+#### is_warning *: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+True if the issue is a warning, false if it is an error.
+
+#### permission_name *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+Fields for message construction:
+Used for messages that reference a specific permission name
+
+#### occluder_node_info *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+Used for messages about occlusion
+
+#### occluder_parent_node_info *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+Used for messages about occluder’s parent
+
+#### disable_reason *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+Used for messages about activation disabled reason
+
+### *class* SelectivePermissionsInterventionIssueDetails(api_name, ad_ancestry, stack_trace=None)
+
+The issue warns about blocked calls to privacy sensitive APIs via the
+Selective Permissions Intervention.
+
+#### api_name *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
+
+Which API was intervened on.
+
+#### ad_ancestry *: [AdAncestry](network.md#nodriver.cdp.network.AdAncestry)*
+
+Why the ad script using the API is considered an ad.
+
+#### stack_trace *: [StackTrace](runtime.md#nodriver.cdp.runtime.StackTrace) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+The stack trace at the time of the intervention.
+
+### *class* InspectorIssueCode(\*values)
 
 A unique identifier for the type of issue. Each type may use one of the
 optional fields in InspectorIssueDetails to convey more specific
@@ -992,8 +1112,6 @@ information about the kind of issue.
 #### CONTENT_SECURITY_POLICY_ISSUE *= 'ContentSecurityPolicyIssue'*
 
 #### SHARED_ARRAY_BUFFER_ISSUE *= 'SharedArrayBufferIssue'*
-
-#### LOW_TEXT_CONTRAST_ISSUE *= 'LowTextContrastIssue'*
 
 #### CORS_ISSUE *= 'CorsIssue'*
 
@@ -1031,65 +1149,79 @@ information about the kind of issue.
 
 #### UNENCODED_DIGEST_ISSUE *= 'UnencodedDigestIssue'*
 
+#### CONNECTION_ALLOWLIST_ISSUE *= 'ConnectionAllowlistIssue'*
+
 #### USER_REIDENTIFICATION_ISSUE *= 'UserReidentificationIssue'*
 
-### *class* InspectorIssueDetails(cookie_issue_details=None, mixed_content_issue_details=None, blocked_by_response_issue_details=None, heavy_ad_issue_details=None, content_security_policy_issue_details=None, shared_array_buffer_issue_details=None, low_text_contrast_issue_details=None, cors_issue_details=None, attribution_reporting_issue_details=None, quirks_mode_issue_details=None, partitioning_blob_url_issue_details=None, navigator_user_agent_issue_details=None, generic_issue_details=None, deprecation_issue_details=None, client_hint_issue_details=None, federated_auth_request_issue_details=None, bounce_tracking_issue_details=None, cookie_deprecation_metadata_issue_details=None, stylesheet_loading_issue_details=None, property_rule_issue_details=None, federated_auth_user_info_request_issue_details=None, shared_dictionary_issue_details=None, element_accessibility_issue_details=None, sri_message_signature_issue_details=None, unencoded_digest_issue_details=None, user_reidentification_issue_details=None)
+#### PERMISSION_ELEMENT_ISSUE *= 'PermissionElementIssue'*
+
+#### PERFORMANCE_ISSUE *= 'PerformanceIssue'*
+
+#### SELECTIVE_PERMISSIONS_INTERVENTION_ISSUE *= 'SelectivePermissionsInterventionIssue'*
+
+### *class* InspectorIssueDetails(cookie_issue_details=None, mixed_content_issue_details=None, blocked_by_response_issue_details=None, heavy_ad_issue_details=None, content_security_policy_issue_details=None, shared_array_buffer_issue_details=None, cors_issue_details=None, attribution_reporting_issue_details=None, quirks_mode_issue_details=None, partitioning_blob_url_issue_details=None, navigator_user_agent_issue_details=None, generic_issue_details=None, deprecation_issue_details=None, client_hint_issue_details=None, federated_auth_request_issue_details=None, bounce_tracking_issue_details=None, cookie_deprecation_metadata_issue_details=None, stylesheet_loading_issue_details=None, property_rule_issue_details=None, federated_auth_user_info_request_issue_details=None, shared_dictionary_issue_details=None, element_accessibility_issue_details=None, sri_message_signature_issue_details=None, unencoded_digest_issue_details=None, connection_allowlist_issue_details=None, user_reidentification_issue_details=None, permission_element_issue_details=None, performance_issue_details=None, selective_permissions_intervention_issue_details=None)
 
 This struct holds a list of optional fields with additional information
 specific to the kind of issue. When adding a new issue code, please also
 add a new optional field to this type.
 
-#### cookie_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`CookieIssueDetails`](#nodriver.cdp.audits.CookieIssueDetails)]* *= None*
+#### cookie_issue_details *: [CookieIssueDetails](#nodriver.cdp.audits.CookieIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### mixed_content_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`MixedContentIssueDetails`](#nodriver.cdp.audits.MixedContentIssueDetails)]* *= None*
+#### mixed_content_issue_details *: [MixedContentIssueDetails](#nodriver.cdp.audits.MixedContentIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### blocked_by_response_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BlockedByResponseIssueDetails`](#nodriver.cdp.audits.BlockedByResponseIssueDetails)]* *= None*
+#### blocked_by_response_issue_details *: [BlockedByResponseIssueDetails](#nodriver.cdp.audits.BlockedByResponseIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### heavy_ad_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`HeavyAdIssueDetails`](#nodriver.cdp.audits.HeavyAdIssueDetails)]* *= None*
+#### heavy_ad_issue_details *: [HeavyAdIssueDetails](#nodriver.cdp.audits.HeavyAdIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### content_security_policy_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ContentSecurityPolicyIssueDetails`](#nodriver.cdp.audits.ContentSecurityPolicyIssueDetails)]* *= None*
+#### content_security_policy_issue_details *: [ContentSecurityPolicyIssueDetails](#nodriver.cdp.audits.ContentSecurityPolicyIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### shared_array_buffer_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SharedArrayBufferIssueDetails`](#nodriver.cdp.audits.SharedArrayBufferIssueDetails)]* *= None*
+#### shared_array_buffer_issue_details *: [SharedArrayBufferIssueDetails](#nodriver.cdp.audits.SharedArrayBufferIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### low_text_contrast_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`LowTextContrastIssueDetails`](#nodriver.cdp.audits.LowTextContrastIssueDetails)]* *= None*
+#### cors_issue_details *: [CorsIssueDetails](#nodriver.cdp.audits.CorsIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### cors_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`CorsIssueDetails`](#nodriver.cdp.audits.CorsIssueDetails)]* *= None*
+#### attribution_reporting_issue_details *: [AttributionReportingIssueDetails](#nodriver.cdp.audits.AttributionReportingIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### attribution_reporting_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`AttributionReportingIssueDetails`](#nodriver.cdp.audits.AttributionReportingIssueDetails)]* *= None*
+#### quirks_mode_issue_details *: [QuirksModeIssueDetails](#nodriver.cdp.audits.QuirksModeIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### quirks_mode_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`QuirksModeIssueDetails`](#nodriver.cdp.audits.QuirksModeIssueDetails)]* *= None*
+#### partitioning_blob_url_issue_details *: [PartitioningBlobURLIssueDetails](#nodriver.cdp.audits.PartitioningBlobURLIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### partitioning_blob_url_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`PartitioningBlobURLIssueDetails`](#nodriver.cdp.audits.PartitioningBlobURLIssueDetails)]* *= None*
+#### navigator_user_agent_issue_details *: [NavigatorUserAgentIssueDetails](#nodriver.cdp.audits.NavigatorUserAgentIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### navigator_user_agent_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`NavigatorUserAgentIssueDetails`](#nodriver.cdp.audits.NavigatorUserAgentIssueDetails)]* *= None*
+#### generic_issue_details *: [GenericIssueDetails](#nodriver.cdp.audits.GenericIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### generic_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`GenericIssueDetails`](#nodriver.cdp.audits.GenericIssueDetails)]* *= None*
+#### deprecation_issue_details *: [DeprecationIssueDetails](#nodriver.cdp.audits.DeprecationIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### deprecation_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`DeprecationIssueDetails`](#nodriver.cdp.audits.DeprecationIssueDetails)]* *= None*
+#### client_hint_issue_details *: [ClientHintIssueDetails](#nodriver.cdp.audits.ClientHintIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### client_hint_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ClientHintIssueDetails`](#nodriver.cdp.audits.ClientHintIssueDetails)]* *= None*
+#### federated_auth_request_issue_details *: [FederatedAuthRequestIssueDetails](#nodriver.cdp.audits.FederatedAuthRequestIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### federated_auth_request_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`FederatedAuthRequestIssueDetails`](#nodriver.cdp.audits.FederatedAuthRequestIssueDetails)]* *= None*
+#### bounce_tracking_issue_details *: [BounceTrackingIssueDetails](#nodriver.cdp.audits.BounceTrackingIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### bounce_tracking_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BounceTrackingIssueDetails`](#nodriver.cdp.audits.BounceTrackingIssueDetails)]* *= None*
+#### cookie_deprecation_metadata_issue_details *: [CookieDeprecationMetadataIssueDetails](#nodriver.cdp.audits.CookieDeprecationMetadataIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### cookie_deprecation_metadata_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`CookieDeprecationMetadataIssueDetails`](#nodriver.cdp.audits.CookieDeprecationMetadataIssueDetails)]* *= None*
+#### stylesheet_loading_issue_details *: [StylesheetLoadingIssueDetails](#nodriver.cdp.audits.StylesheetLoadingIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### stylesheet_loading_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`StylesheetLoadingIssueDetails`](#nodriver.cdp.audits.StylesheetLoadingIssueDetails)]* *= None*
+#### property_rule_issue_details *: [PropertyRuleIssueDetails](#nodriver.cdp.audits.PropertyRuleIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### property_rule_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`PropertyRuleIssueDetails`](#nodriver.cdp.audits.PropertyRuleIssueDetails)]* *= None*
+#### federated_auth_user_info_request_issue_details *: [FederatedAuthUserInfoRequestIssueDetails](#nodriver.cdp.audits.FederatedAuthUserInfoRequestIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### federated_auth_user_info_request_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`FederatedAuthUserInfoRequestIssueDetails`](#nodriver.cdp.audits.FederatedAuthUserInfoRequestIssueDetails)]* *= None*
+#### shared_dictionary_issue_details *: [SharedDictionaryIssueDetails](#nodriver.cdp.audits.SharedDictionaryIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### shared_dictionary_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SharedDictionaryIssueDetails`](#nodriver.cdp.audits.SharedDictionaryIssueDetails)]* *= None*
+#### element_accessibility_issue_details *: [ElementAccessibilityIssueDetails](#nodriver.cdp.audits.ElementAccessibilityIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### element_accessibility_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ElementAccessibilityIssueDetails`](#nodriver.cdp.audits.ElementAccessibilityIssueDetails)]* *= None*
+#### sri_message_signature_issue_details *: [SRIMessageSignatureIssueDetails](#nodriver.cdp.audits.SRIMessageSignatureIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### sri_message_signature_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SRIMessageSignatureIssueDetails`](#nodriver.cdp.audits.SRIMessageSignatureIssueDetails)]* *= None*
+#### unencoded_digest_issue_details *: [UnencodedDigestIssueDetails](#nodriver.cdp.audits.UnencodedDigestIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### unencoded_digest_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`UnencodedDigestIssueDetails`](#nodriver.cdp.audits.UnencodedDigestIssueDetails)]* *= None*
+#### connection_allowlist_issue_details *: [ConnectionAllowlistIssueDetails](#nodriver.cdp.audits.ConnectionAllowlistIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### user_reidentification_issue_details*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`UserReidentificationIssueDetails`](#nodriver.cdp.audits.UserReidentificationIssueDetails)]* *= None*
+#### user_reidentification_issue_details *: [UserReidentificationIssueDetails](#nodriver.cdp.audits.UserReidentificationIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+#### permission_element_issue_details *: [PermissionElementIssueDetails](#nodriver.cdp.audits.PermissionElementIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+#### performance_issue_details *: [PerformanceIssueDetails](#nodriver.cdp.audits.PerformanceIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+#### selective_permissions_intervention_issue_details *: [SelectivePermissionsInterventionIssueDetails](#nodriver.cdp.audits.SelectivePermissionsInterventionIssueDetails) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ### *class* IssueId
 
@@ -1100,11 +1232,11 @@ exceptions, CDP message, console messages, etc.) to reference an issue.
 
 An inspector issue reported from the back-end.
 
-#### code*: [`InspectorIssueCode`](#nodriver.cdp.audits.InspectorIssueCode)*
+#### code *: [InspectorIssueCode](#nodriver.cdp.audits.InspectorIssueCode)*
 
-#### details*: [`InspectorIssueDetails`](#nodriver.cdp.audits.InspectorIssueDetails)*
+#### details *: [InspectorIssueDetails](#nodriver.cdp.audits.InspectorIssueDetails)*
 
-#### issue_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`IssueId`](#nodriver.cdp.audits.IssueId)]* *= None*
+#### issue_id *: [IssueId](#nodriver.cdp.audits.IssueId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 A unique id for this issue. May be omitted if no other entity (e.g.
 exception, CDP message, etc.) is referencing this issue.
@@ -1119,16 +1251,6 @@ this library, types `x` and `y` are the same for all
 commands, and `z` is the return type you should pay attention
 to. For more information, see
 [Getting Started: Commands](../../readme.md#getting-started-commands).
-
-### check_contrast(report_aaa=None)
-
-Runs the contrast check for the target page. Found issues are reported
-using Audits.issueAdded event.
-
-* **Parameters:**
-  **report_aaa** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`bool`](https://docs.python.org/3/library/functions.html#bool)]) – *(Optional)* Whether to report WCAG AAA level issues. Default is false.
-* **Return type:**
-  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 ### check_forms_issues()
 
@@ -1162,13 +1284,13 @@ applies to images.
 * **Parameters:**
   * **request_id** ([`RequestId`](network.md#nodriver.cdp.network.RequestId)) – Identifier of the network request to get content for.
   * **encoding** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – The encoding to use.
-  * **quality** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`float`](https://docs.python.org/3/library/functions.html#float)]) – *(Optional)* The quality of the encoding (0-1). (defaults to 1)
-  * **size_only** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`bool`](https://docs.python.org/3/library/functions.html#bool)]) – *(Optional)* Whether to only return the size information (defaults to false).
+  * **quality** ([`float`](https://docs.python.org/3/library/functions.html#float) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* The quality of the encoding (0-1). (defaults to 1)
+  * **size_only** ([`bool`](https://docs.python.org/3/library/functions.html#bool) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Whether to only return the size information (defaults to false).
 * **Return type:**
-  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Tuple`](https://docs.python.org/3/library/typing.html#typing.Tuple)[[`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)], [`int`](https://docs.python.org/3/library/functions.html#int), [`int`](https://docs.python.org/3/library/functions.html#int)]]
+  [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Tuple`](https://docs.python.org/3/library/typing.html#typing.Tuple)[[`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None), [`int`](https://docs.python.org/3/library/functions.html#int), [`int`](https://docs.python.org/3/library/functions.html#int)]]
 * **Returns:**
   A tuple with the following items:
-  1. **body** - *(Optional)* The encoded body as a base64 string. Omitted if sizeOnly is true. (Encoded as a base64 string when passed over JSON)
+  1. **body** -  *(Optional)* The encoded body as a base64 string. Omitted if sizeOnly is true. (Encoded as a base64 string when passed over JSON)
   2. **originalSize** - Size before re-encoding.
   3. **encodedSize** - Size after re-encoding.
 
@@ -1180,4 +1302,4 @@ you use the event’s attributes.
 
 ### *class* IssueAdded(issue)
 
-#### issue*: [`InspectorIssue`](#nodriver.cdp.audits.InspectorIssue)*
+#### issue *: [InspectorIssue](#nodriver.cdp.audits.InspectorIssue)*
