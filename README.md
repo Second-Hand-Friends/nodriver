@@ -79,7 +79,7 @@ Why?
 
 Since this required quite some rewriting, please test thoroughly, especially if you run large projects.
 
-<video autoplay loop muted playsinline src="https://github.com/user-attachments/assets/b30872f0-62fe-45b2-a67a-adc1e0c7c048"/>
+<video autoplay loop muted playsinline src="https://github.com/user-attachments/assets/b30872f0-62fe-45b2-a67a-adc1e0c7c048"></video>
 
 
 ### ```tab.xpath(selector, timeout=2.5)```
