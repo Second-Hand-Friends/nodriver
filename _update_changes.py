@@ -90,7 +90,7 @@ commit = None
 if modified_files:
     commit = input("commit message (use no quotes) :")
 if commit:
-    subprocess.run(f'git commit -m "{commit}"')
+    subprocess.run(["git", "commit", "-m", commit])
 
     subprocess.run("python -m build")
     subprocess.run("twine upload dist\\*")
