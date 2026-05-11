@@ -1,3 +1,7 @@
+
+
+
+
 NODRIVER
 =======================
 
@@ -62,6 +66,21 @@ to fully customizable everything using the entire array of
 
 what is new
 --------------------
+
+### 0.50.1 switch to flat mode connection.
+
+Parts are rewritten to use flat connections in the protocol.
+Why?
+    - iframes are included in most operations.
+    - tab got a new method: `await tab.get_frames()`
+    which will return Iframes that are inspectable.
+    - find() will include iframes, so you can even search for "verify you are human" and
+    click the verification checkbox in js challenges.
+
+Since this required quite some rewriting, please test thoroughly, especially if you run large projects.
+
+<video autoplay loop muted playsinline src="https://github.com/user-attachments/assets/b30872f0-62fe-45b2-a67a-adc1e0c7c048"/>
+
 
 ### ```tab.xpath(selector, timeout=2.5)```
 find nodes using xpath selector!
