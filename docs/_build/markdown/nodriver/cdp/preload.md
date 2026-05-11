@@ -18,17 +18,17 @@ arguments to other commands.
 
 Unique id
 
-### *class* RuleSet(id_, loader_id, source_text, backend_node_id=None, url=None, request_id=None, error_type=None, error_message=None)
+### *class* RuleSet(id_, loader_id, source_text, backend_node_id=None, url=None, request_id=None, error_type=None, error_message=None, tag=None)
 
 Corresponds to SpeculationRuleSet
 
-#### id_*: [`RuleSetId`](#nodriver.cdp.preload.RuleSetId)*
+#### id_ *: [RuleSetId](#nodriver.cdp.preload.RuleSetId)*
 
-#### loader_id*: [`LoaderId`](network.md#nodriver.cdp.network.LoaderId)*
+#### loader_id *: [LoaderId](network.md#nodriver.cdp.network.LoaderId)*
 
 Identifies a document which the rule set is associated with.
 
-#### source_text*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### source_text *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 Source text of JSON representing the rule set. If it comes from
 `<script>` tag, it is the textContent of the node. Note that it is
@@ -38,7 +38,7 @@ See also:
 - [https://wicg.github.io/nav-speculation/speculation-rules.html](https://wicg.github.io/nav-speculation/speculation-rules.html)
 - [https://github.com/WICG/nav-speculation/blob/main/triggers.md](https://github.com/WICG/nav-speculation/blob/main/triggers.md)
 
-#### backend_node_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]* *= None*
+#### backend_node_id *: [BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 A speculation rule set is either added through an inline
 `<script>` tag or through an external resource via the
@@ -51,16 +51,16 @@ See also:
 - [https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-script](https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-script)
 - [https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-header](https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-header)
 
-#### url*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### url *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### request_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RequestId`](network.md#nodriver.cdp.network.RequestId)]* *= None*
+#### request_id *: [RequestId](network.md#nodriver.cdp.network.RequestId) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### error_type*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`RuleSetErrorType`](#nodriver.cdp.preload.RuleSetErrorType)]* *= None*
+#### error_type *: [RuleSetErrorType](#nodriver.cdp.preload.RuleSetErrorType) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Error information
 `errorMessage` is null iff `errorType` is null.
 
-#### error_message*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### error_message *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Replace this property with structured error.
 
@@ -69,7 +69,12 @@ Replace this property with structured error.
 * **Type:**
   //crbug.com/1425354)
 
-### *class* RuleSetErrorType(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+#### tag *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+For more details, see:
+[https://github.com/WICG/nav-speculation/blob/main/speculation-rules-tags.md](https://github.com/WICG/nav-speculation/blob/main/speculation-rules-tags.md)
+
+### *class* RuleSetErrorType(\*values)
 
 #### SOURCE_IS_NOT_JSON_OBJECT *= 'SourceIsNotJsonObject'*
 
@@ -77,7 +82,7 @@ Replace this property with structured error.
 
 #### INVALID_RULESET_LEVEL_TAG *= 'InvalidRulesetLevelTag'*
 
-### *class* SpeculationAction(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* SpeculationAction(\*values)
 
 The type of preloading attempted. It corresponds to
 mojom::SpeculationAction (although PrefetchWithSubresources is omitted as it
@@ -87,7 +92,9 @@ isn’t being used by clients).
 
 #### PRERENDER *= 'Prerender'*
 
-### *class* SpeculationTargetHint(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+#### PRERENDER_UNTIL_SCRIPT *= 'PrerenderUntilScript'*
+
+### *class* SpeculationTargetHint(\*values)
 
 Corresponds to mojom::SpeculationTargetHint.
 See https://github.com/WICG/nav-speculation/blob/main/triggers.md#window-name-targeting-hints
@@ -96,7 +103,7 @@ See https://github.com/WICG/nav-speculation/blob/main/triggers.md#window-name-ta
 
 #### SELF *= 'Self'*
 
-### *class* PreloadingAttemptKey(loader_id, action, url, target_hint=None)
+### *class* PreloadingAttemptKey(loader_id, action, url, form_submission=None, target_hint=None)
 
 A key that identifies a preloading attempt.
 
@@ -105,13 +112,15 @@ not the final url that is navigated to. For example, prerendering allows
 same-origin main frame navigations during the attempt, but the attempt is
 still keyed with the initial URL.
 
-#### loader_id*: [`LoaderId`](network.md#nodriver.cdp.network.LoaderId)*
+#### loader_id *: [LoaderId](network.md#nodriver.cdp.network.LoaderId)*
 
-#### action*: [`SpeculationAction`](#nodriver.cdp.preload.SpeculationAction)*
+#### action *: [SpeculationAction](#nodriver.cdp.preload.SpeculationAction)*
 
-#### url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### target_hint*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`SpeculationTargetHint`](#nodriver.cdp.preload.SpeculationTargetHint)]* *= None*
+#### form_submission *: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
+
+#### target_hint *: [SpeculationTargetHint](#nodriver.cdp.preload.SpeculationTargetHint) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ### *class* PreloadingAttemptSource(key, rule_set_ids, node_ids)
 
@@ -121,11 +130,11 @@ BackendNodeIds of <a href> or <area href> elements that triggered the
 attempt (in the case of attempts triggered by a document rule). It is
 possible for multiple rule sets and links to trigger a single attempt.
 
-#### key*: [`PreloadingAttemptKey`](#nodriver.cdp.preload.PreloadingAttemptKey)*
+#### key *: [PreloadingAttemptKey](#nodriver.cdp.preload.PreloadingAttemptKey)*
 
-#### rule_set_ids*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`RuleSetId`](#nodriver.cdp.preload.RuleSetId)]*
+#### rule_set_ids *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[RuleSetId](#nodriver.cdp.preload.RuleSetId)]*
 
-#### node_ids*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`BackendNodeId`](dom.md#nodriver.cdp.dom.BackendNodeId)]*
+#### node_ids *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[BackendNodeId](dom.md#nodriver.cdp.dom.BackendNodeId)]*
 
 ### *class* PreloadPipelineId
 
@@ -137,7 +146,7 @@ then upgrades it to prerender.
 CDP events for them are emitted separately but they share
 `PreloadPipelineId`.
 
-### *class* PrerenderFinalStatus(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* PrerenderFinalStatus(\*values)
 
 List of FinalStatus reasons for Prerender2.
 
@@ -289,7 +298,9 @@ List of FinalStatus reasons for Prerender2.
 
 #### PRERENDER_HOST_REUSED *= 'PrerenderHostReused'*
 
-### *class* PreloadingStatus(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+#### FORM_SUBMIT_WHEN_PRERENDERING *= 'FormSubmitWhenPrerendering'*
+
+### *class* PreloadingStatus(\*values)
 
 Preloading status values, see also PreloadingTriggeringOutcome. This
 status is shared by prefetchStatusUpdated and prerenderStatusUpdated.
@@ -306,7 +317,7 @@ status is shared by prefetchStatusUpdated and prerenderStatusUpdated.
 
 #### NOT_SUPPORTED *= 'NotSupported'*
 
-### *class* PrefetchStatus(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* PrefetchStatus(\*values)
 
 TODO([https://crbug.com/1384419](https://crbug.com/1384419)): revisit the list of PrefetchStatus and
 filter out the ones that aren’t necessary to the developers.
@@ -383,11 +394,11 @@ filter out the ones that aren’t necessary to the developers.
 
 Information of headers to be displayed when the header mismatch occurred.
 
-#### header_name*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### header_name *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### initial_value*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### initial_value *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### activation_value*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### activation_value *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ## Commands
 
@@ -420,69 +431,69 @@ you use the event’s attributes.
 
 Upsert. Currently, it is only emitted when a rule set added.
 
-#### rule_set*: [`RuleSet`](#nodriver.cdp.preload.RuleSet)*
+#### rule_set *: [RuleSet](#nodriver.cdp.preload.RuleSet)*
 
 ### *class* RuleSetRemoved(id_)
 
-#### id_*: [`RuleSetId`](#nodriver.cdp.preload.RuleSetId)*
+#### id_ *: [RuleSetId](#nodriver.cdp.preload.RuleSetId)*
 
 ### *class* PreloadEnabledStateUpdated(disabled_by_preference, disabled_by_data_saver, disabled_by_battery_saver, disabled_by_holdback_prefetch_speculation_rules, disabled_by_holdback_prerender_speculation_rules)
 
 Fired when a preload enabled state is updated.
 
-#### disabled_by_preference*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### disabled_by_preference *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-#### disabled_by_data_saver*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### disabled_by_data_saver *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-#### disabled_by_battery_saver*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### disabled_by_battery_saver *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-#### disabled_by_holdback_prefetch_speculation_rules*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### disabled_by_holdback_prefetch_speculation_rules *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-#### disabled_by_holdback_prerender_speculation_rules*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### disabled_by_holdback_prerender_speculation_rules *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
 ### *class* PrefetchStatusUpdated(key, pipeline_id, initiating_frame_id, prefetch_url, status, prefetch_status, request_id)
 
 Fired when a prefetch attempt is updated.
 
-#### key*: [`PreloadingAttemptKey`](#nodriver.cdp.preload.PreloadingAttemptKey)*
+#### key *: [PreloadingAttemptKey](#nodriver.cdp.preload.PreloadingAttemptKey)*
 
-#### pipeline_id*: [`PreloadPipelineId`](#nodriver.cdp.preload.PreloadPipelineId)*
+#### pipeline_id *: [PreloadPipelineId](#nodriver.cdp.preload.PreloadPipelineId)*
 
-#### initiating_frame_id*: [`FrameId`](page.md#nodriver.cdp.page.FrameId)*
+#### initiating_frame_id *: [FrameId](page.md#nodriver.cdp.page.FrameId)*
 
 The frame id of the frame initiating prefetch.
 
-#### prefetch_url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### prefetch_url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### status*: [`PreloadingStatus`](#nodriver.cdp.preload.PreloadingStatus)*
+#### status *: [PreloadingStatus](#nodriver.cdp.preload.PreloadingStatus)*
 
-#### prefetch_status*: [`PrefetchStatus`](#nodriver.cdp.preload.PrefetchStatus)*
+#### prefetch_status *: [PrefetchStatus](#nodriver.cdp.preload.PrefetchStatus)*
 
-#### request_id*: [`RequestId`](network.md#nodriver.cdp.network.RequestId)*
+#### request_id *: [RequestId](network.md#nodriver.cdp.network.RequestId)*
 
 ### *class* PrerenderStatusUpdated(key, pipeline_id, status, prerender_status, disallowed_mojo_interface, mismatched_headers)
 
 Fired when a prerender attempt is updated.
 
-#### key*: [`PreloadingAttemptKey`](#nodriver.cdp.preload.PreloadingAttemptKey)*
+#### key *: [PreloadingAttemptKey](#nodriver.cdp.preload.PreloadingAttemptKey)*
 
-#### pipeline_id*: [`PreloadPipelineId`](#nodriver.cdp.preload.PreloadPipelineId)*
+#### pipeline_id *: [PreloadPipelineId](#nodriver.cdp.preload.PreloadPipelineId)*
 
-#### status*: [`PreloadingStatus`](#nodriver.cdp.preload.PreloadingStatus)*
+#### status *: [PreloadingStatus](#nodriver.cdp.preload.PreloadingStatus)*
 
-#### prerender_status*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`PrerenderFinalStatus`](#nodriver.cdp.preload.PrerenderFinalStatus)]*
+#### prerender_status *: [PrerenderFinalStatus](#nodriver.cdp.preload.PrerenderFinalStatus) | [None](https://docs.python.org/3/library/constants.html#None)*
 
-#### disallowed_mojo_interface*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]*
+#### disallowed_mojo_interface *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 This is used to give users more information about the name of Mojo interface
 that is incompatible with prerender and has caused the cancellation of the attempt.
 
-#### mismatched_headers*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`PrerenderMismatchedHeaders`](#nodriver.cdp.preload.PrerenderMismatchedHeaders)]]*
+#### mismatched_headers *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[PrerenderMismatchedHeaders](#nodriver.cdp.preload.PrerenderMismatchedHeaders)] | [None](https://docs.python.org/3/library/constants.html#None)*
 
 ### *class* PreloadingAttemptSourcesUpdated(loader_id, preloading_attempt_sources)
 
 Send a list of sources for all preloading attempts in a document.
 
-#### loader_id*: [`LoaderId`](network.md#nodriver.cdp.network.LoaderId)*
+#### loader_id *: [LoaderId](network.md#nodriver.cdp.network.LoaderId)*
 
-#### preloading_attempt_sources*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`PreloadingAttemptSource`](#nodriver.cdp.preload.PreloadingAttemptSource)]*
+#### preloading_attempt_sources *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[PreloadingAttemptSource](#nodriver.cdp.preload.PreloadingAttemptSource)]*

@@ -107,7 +107,7 @@ therefore, it is not advised to call this method on a bunch of blocks (100+) at 
 
 #### *property* node
 
-#### *property* tree*: [Node](../cdp/dom.md#nodriver.cdp.dom.Node)*
+#### *property* tree *: [Node](../cdp/dom.md#nodriver.cdp.dom.Node)*
 
 #### *property* attrs
 
@@ -115,22 +115,22 @@ attributes are stored here, however, you can set them directly on the element ob
 :return:
 :rtype:
 
-#### *property* parent*: [Element](#nodriver.Element) | [None](https://docs.python.org/3/library/constants.html#None)*
+#### *property* parent *: [Element](#nodriver.Element) | [None](https://docs.python.org/3/library/constants.html#None)*
 
 get the parent element (node) of current element(node)
 :return:
 :rtype:
 
-#### *property* children*: [List](https://docs.python.org/3/library/typing.html#typing.List)[[Element](#nodriver.Element)] | [str](https://docs.python.org/3/library/stdtypes.html#str)*
+#### *property* children *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[Element](#nodriver.Element)] | [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 returns the elements’ children. those children also have a children property
 so you can browse through the entire tree as well.
 :return:
 :rtype:
 
-#### *property* remote_object*: [RemoteObject](../cdp/runtime.md#nodriver.cdp.runtime.RemoteObject)*
+#### *property* remote_object *: [RemoteObject](../cdp/runtime.md#nodriver.cdp.runtime.RemoteObject)*
 
-#### *property* object_id*: [RemoteObjectId](../cdp/runtime.md#nodriver.cdp.runtime.RemoteObjectId)*
+#### *property* object_id *: [RemoteObjectId](../cdp/runtime.md#nodriver.cdp.runtime.RemoteObjectId)*
 
 #### *async* click()
 
@@ -152,7 +152,7 @@ eg:
 > - function myFunction(elem) { alert(elem) }
 * **Parameters:**
   * **js_function** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) – the js function definition which received this element.
-  * **return_by_value** – 
+  * **return_by_value**
 * **Returns:**
 * **Return type:**
 
@@ -167,10 +167,10 @@ native click (on element) . note: this likely does not work atm, use click() ins
 
 * **Parameters:**
   * **button** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – str (default = “left”)
-  * **buttons** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`int`](https://docs.python.org/3/library/functions.html#int)]) – which button (default 1 = left)
-  * **modifiers** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`int`](https://docs.python.org/3/library/functions.html#int)]) – *(Optional)* Bit field representing pressed modifier keys.
+  * **buttons** ([`int`](https://docs.python.org/3/library/functions.html#int) | [`None`](https://docs.python.org/3/library/constants.html#None)) – which button (default 1 = left)
+  * **modifiers** ([`int`](https://docs.python.org/3/library/functions.html#int) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Bit field representing pressed modifier keys.
     Alt=1, Ctrl=2, Meta/Command=4, Shift=8 (default: 0).
-  * **\_until_event** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`type`](https://docs.python.org/3/library/functions.html#type)]) – internal. event to wait for before returning
+  * **\_until_event** ([`type`](https://docs.python.org/3/library/functions.html#type) | [`None`](https://docs.python.org/3/library/constants.html#None)) – internal. event to wait for before returning
 * **Returns:**
 
 #### *async* click_mouse(button='left', buttons=1, modifiers=0, \_until_event=None)
@@ -179,10 +179,10 @@ native click (on element) . note: this likely does not work atm, use click() ins
 
 * **Parameters:**
   * **button** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – str (default = “left”)
-  * **buttons** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`int`](https://docs.python.org/3/library/functions.html#int)]) – which button (default 1 = left)
-  * **modifiers** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`int`](https://docs.python.org/3/library/functions.html#int)]) – *(Optional)* Bit field representing pressed modifier keys.
+  * **buttons** ([`int`](https://docs.python.org/3/library/functions.html#int) | [`None`](https://docs.python.org/3/library/constants.html#None)) – which button (default 1 = left)
+  * **modifiers** ([`int`](https://docs.python.org/3/library/functions.html#int) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)* Bit field representing pressed modifier keys.
     Alt=1, Ctrl=2, Meta/Command=4, Shift=8 (default: 0).
-  * **\_until_event** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`type`](https://docs.python.org/3/library/functions.html#type)]) – internal. event to wait for before returning
+  * **\_until_event** ([`type`](https://docs.python.org/3/library/functions.html#type) | [`None`](https://docs.python.org/3/library/constants.html#None)) – internal. event to wait for before returning
 * **Returns:**
 
 #### *async* mouse_move()
@@ -195,9 +195,9 @@ hover/mouseover effect, this would trigger it
 drag an element to another element or target coordinates. dragging of elements should be supported  by the site of course
 
 * **Parameters:**
-  * **destination** ([*Element*](#nodriver.Element) *or* *coordinate as x**,**y tuple*) – another element where to drag to, or a tuple (x,y) of ints representing coordinate
+  * **destination** ([`Element`](#nodriver.Element) | [`Tuple`](https://docs.python.org/3/library/typing.html#typing.Tuple)[[`int`](https://docs.python.org/3/library/functions.html#int), [`int`](https://docs.python.org/3/library/functions.html#int)]) – another element where to drag to, or a tuple (x,y) of ints representing coordinate
   * **relative** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) – when True, treats coordinate as relative. for example (-100, 200) will move left 100px and down 200px
-  * **steps** ([*int*](https://docs.python.org/3/library/functions.html#int)) – move in <steps> points, this could make it look more “natural” (default 1),
+  * **steps** ([`int`](https://docs.python.org/3/library/functions.html#int)) – move in <steps> points, this could make it look more “natural” (default 1),
     but also a lot slower.
     for very smooth action use 50-100
 * **Returns:**
@@ -215,7 +215,7 @@ clears an input field
 
 send text to an input field, or any other html element.
 
-hint, if you ever get stuck where using py:meth:~click
+hint, if you ever get stuck where using py:meth:`~click`
 does not work, sending the keystroke n or rn or a spacebar work wonders!
 
 * **Parameters:**
@@ -232,7 +232,7 @@ needles to say, but make sure the field accepts multiple files if you want to se
 otherwise the browser might crash.
 
 example :
-await fileinputElement.send_file(‘c:/temp/image.png’, ‘c:/users/myuser/lol.gif’)
+`await fileinputElement.send_file('c:/temp/image.png', 'c:/users/myuser/lol.gif')`
 
 #### *async* focus()
 
@@ -252,7 +252,7 @@ does not work in all cases.
 
 #### *async* get_html()
 
-#### *property* text*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
+#### *property* text *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
 gets the text contents of this element
 note: this includes text in the form of script content, as those are also just ‘text nodes’
@@ -283,9 +283,9 @@ This is not the same as [`Tab.save_screenshot`](tab.md#nodriver.Tab.save_screens
 When the element is hidden, or has no size, or is otherwise not capturable, a RuntimeError is raised
 
 * **Parameters:**
-  * **filename** (*PathLike*) – uses this as the save path
-  * **format** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) – jpeg or png (defaults to jpeg)
-  * **scale** ([`Union`](https://docs.python.org/3/library/typing.html#typing.Union)[[`int`](https://docs.python.org/3/library/functions.html#int), [`float`](https://docs.python.org/3/library/functions.html#float), [`None`](https://docs.python.org/3/library/constants.html#None)]) – the scale of the screenshot, eg: 1 = size as is, 2 = double, 0.5 is half
+  * **filename** ([`TypeVar`](https://docs.python.org/3/library/typing.html#typing.TypeVar)(`PathLike`, bound= [`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path)) | [`None`](https://docs.python.org/3/library/constants.html#None)) – uses this as the save path
+  * **format** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) – jpeg or png (defaults to jpeg)
+  * **scale** ([`int`](https://docs.python.org/3/library/functions.html#int) | [`float`](https://docs.python.org/3/library/functions.html#float) | [`None`](https://docs.python.org/3/library/constants.html#None)) – the scale of the screenshot, eg: 1 = size as is, 2 = double, 0.5 is half
 * **Returns:**
   the path/filename of saved screenshot
 * **Return type:**
@@ -296,8 +296,8 @@ When the element is hidden, or has no size, or is otherwise not capturable, a Ru
 displays for a short time a red dot on the element (only if the element itself is visible)
 
 * **Parameters:**
-  * **coords** (*x**,**y*) – x,y
-  * **duration** ([`Union`](https://docs.python.org/3/library/typing.html#typing.Union)[[`float`](https://docs.python.org/3/library/functions.html#float), [`int`](https://docs.python.org/3/library/functions.html#int)]) – seconds (default 0.5)
+  * **coords** ([*x*](../cdp/dom.md#nodriver.cdp.dom.Rect.x) *,*[*y*](../cdp/dom.md#nodriver.cdp.dom.Rect.y)) – x,y
+  * **duration** ([`float`](https://docs.python.org/3/library/functions.html#float) | [`int`](https://docs.python.org/3/library/functions.html#int)) – seconds (default 0.5)
 * **Returns:**
 * **Return type:**
 
@@ -313,9 +313,9 @@ call the method again.
 experimental option.
 
 * **Parameters:**
-  * **filename** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – the desired filename
-  * **folder** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – the download folder path
-  * **duration** ([`Union`](https://docs.python.org/3/library/typing.html#typing.Union)[[`int`](https://docs.python.org/3/library/functions.html#int), [`float`](https://docs.python.org/3/library/functions.html#float), [`None`](https://docs.python.org/3/library/constants.html#None)]) – record for this many seconds and then download
+  * **filename** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) – the desired filename
+  * **folder** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) – the download folder path
+  * **duration** ([`int`](https://docs.python.org/3/library/functions.html#int) | [`float`](https://docs.python.org/3/library/functions.html#float) | [`None`](https://docs.python.org/3/library/constants.html#None)) – record for this many seconds and then download
 
 on html5 video nodes, you can call this method to start recording of the video.
 

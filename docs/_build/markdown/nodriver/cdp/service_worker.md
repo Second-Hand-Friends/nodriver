@@ -20,13 +20,13 @@ arguments to other commands.
 
 ServiceWorker registration.
 
-#### registration_id*: [`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID)*
+#### registration_id *: [RegistrationID](#nodriver.cdp.service_worker.RegistrationID)*
 
-#### scope_url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### scope_url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### is_deleted*: [`bool`](https://docs.python.org/3/library/functions.html#bool)*
+#### is_deleted *: [bool](https://docs.python.org/3/library/functions.html#bool)*
 
-### *class* ServiceWorkerVersionRunningStatus(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* ServiceWorkerVersionRunningStatus(\*values)
 
 #### STOPPED *= 'stopped'*
 
@@ -36,7 +36,7 @@ ServiceWorker registration.
 
 #### STOPPING *= 'stopping'*
 
-### *class* ServiceWorkerVersionStatus(value, names=None, \*, module=None, qualname=None, type=None, start=1, boundary=None)
+### *class* ServiceWorkerVersionStatus(\*values)
 
 #### NEW *= 'new'*
 
@@ -54,46 +54,46 @@ ServiceWorker registration.
 
 ServiceWorker version.
 
-#### version_id*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### version_id *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### registration_id*: [`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID)*
+#### registration_id *: [RegistrationID](#nodriver.cdp.service_worker.RegistrationID)*
 
-#### script_url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### script_url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### running_status*: [`ServiceWorkerVersionRunningStatus`](#nodriver.cdp.service_worker.ServiceWorkerVersionRunningStatus)*
+#### running_status *: [ServiceWorkerVersionRunningStatus](#nodriver.cdp.service_worker.ServiceWorkerVersionRunningStatus)*
 
-#### status*: [`ServiceWorkerVersionStatus`](#nodriver.cdp.service_worker.ServiceWorkerVersionStatus)*
+#### status *: [ServiceWorkerVersionStatus](#nodriver.cdp.service_worker.ServiceWorkerVersionStatus)*
 
-#### script_last_modified*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`float`](https://docs.python.org/3/library/functions.html#float)]* *= None*
+#### script_last_modified *: [float](https://docs.python.org/3/library/functions.html#float) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The Last-Modified header value of the main script.
 
-#### script_response_time*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`float`](https://docs.python.org/3/library/functions.html#float)]* *= None*
+#### script_response_time *: [float](https://docs.python.org/3/library/functions.html#float) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 The time at which the response headers of the main script were received from the server.
 For cached script it is the last time the cache entry was validated.
 
-#### controlled_clients*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`TargetID`](target.md#nodriver.cdp.target.TargetID)]]* *= None*
+#### controlled_clients *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[TargetID](target.md#nodriver.cdp.target.TargetID)] | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### target_id*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`TargetID`](target.md#nodriver.cdp.target.TargetID)]* *= None*
+#### target_id *: [TargetID](target.md#nodriver.cdp.target.TargetID) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
-#### router_rules*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### router_rules *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 ### *class* ServiceWorkerErrorMessage(error_message, registration_id, version_id, source_url, line_number, column_number)
 
 ServiceWorker error message.
 
-#### error_message*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### error_message *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### registration_id*: [`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID)*
+#### registration_id *: [RegistrationID](#nodriver.cdp.service_worker.RegistrationID)*
 
-#### version_id*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### version_id *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### source_url*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### source_url *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### line_number*: [`int`](https://docs.python.org/3/library/functions.html#int)*
+#### line_number *: [int](https://docs.python.org/3/library/functions.html#int)*
 
-#### column_number*: [`int`](https://docs.python.org/3/library/functions.html#int)*
+#### column_number *: [int](https://docs.python.org/3/library/functions.html#int)*
 
 ## Commands
 
@@ -109,9 +109,9 @@ to. For more information, see
 ### deliver_push_message(origin, registration_id, data)
 
 * **Parameters:**
-  * **origin** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
-  * **registration_id** ([`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID)) – 
-  * **data** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  * **origin** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
+  * **registration_id** ([`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID))
+  * **data** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -123,19 +123,19 @@ to. For more information, see
 ### dispatch_periodic_sync_event(origin, registration_id, tag)
 
 * **Parameters:**
-  * **origin** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
-  * **registration_id** ([`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID)) – 
-  * **tag** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  * **origin** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
+  * **registration_id** ([`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID))
+  * **tag** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 ### dispatch_sync_event(origin, registration_id, tag, last_chance)
 
 * **Parameters:**
-  * **origin** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
-  * **registration_id** ([`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID)) – 
-  * **tag** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
-  * **last_chance** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) – 
+  * **origin** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
+  * **registration_id** ([`RegistrationID`](#nodriver.cdp.service_worker.RegistrationID))
+  * **tag** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
+  * **last_chance** ([`bool`](https://docs.python.org/3/library/functions.html#bool))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -147,21 +147,21 @@ to. For more information, see
 ### set_force_update_on_page_load(force_update_on_page_load)
 
 * **Parameters:**
-  **force_update_on_page_load** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) – 
+  **force_update_on_page_load** ([`bool`](https://docs.python.org/3/library/functions.html#bool))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 ### skip_waiting(scope_url)
 
 * **Parameters:**
-  **scope_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **scope_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 ### start_worker(scope_url)
 
 * **Parameters:**
-  **scope_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **scope_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -173,21 +173,21 @@ to. For more information, see
 ### stop_worker(version_id)
 
 * **Parameters:**
-  **version_id** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **version_id** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 ### unregister(scope_url)
 
 * **Parameters:**
-  **scope_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **scope_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
 ### update_registration(scope_url)
 
 * **Parameters:**
-  **scope_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **scope_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -199,12 +199,12 @@ you use the event’s attributes.
 
 ### *class* WorkerErrorReported(error_message)
 
-#### error_message*: [`ServiceWorkerErrorMessage`](#nodriver.cdp.service_worker.ServiceWorkerErrorMessage)*
+#### error_message *: [ServiceWorkerErrorMessage](#nodriver.cdp.service_worker.ServiceWorkerErrorMessage)*
 
 ### *class* WorkerRegistrationUpdated(registrations)
 
-#### registrations*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`ServiceWorkerRegistration`](#nodriver.cdp.service_worker.ServiceWorkerRegistration)]*
+#### registrations *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[ServiceWorkerRegistration](#nodriver.cdp.service_worker.ServiceWorkerRegistration)]*
 
 ### *class* WorkerVersionUpdated(versions)
 
-#### versions*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`ServiceWorkerVersion`](#nodriver.cdp.service_worker.ServiceWorkerVersion)]*
+#### versions *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[ServiceWorkerVersion](#nodriver.cdp.service_worker.ServiceWorkerVersion)]*

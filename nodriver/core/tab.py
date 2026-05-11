@@ -1646,7 +1646,7 @@ class Tab(Connection):
             template_image can be custom (for example your language, included is english only),
             but you need to create the template image yourself, which is just a cropped
             image of the area, where the target is exactly in the center. see example on
-            (https://ultrafunkamsterdam.github.io/nodriver/nodriver/classes/tab.html#example-111x71),
+            (https://second-hand-friends.github.io/nodriver/nodriver/classes/tab.html#example-111x71),
 
         :type template_image:
         :param flash: whether to show an indicator where the mouse is clicking.

@@ -19,11 +19,11 @@ arguments to other commands.
 
 ### *class* Sink(name, id_, session=None)
 
-#### name*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### name *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### id_*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### id_ *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
 
-#### session*: [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]* *= None*
+#### session *: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)* *= None*
 
 Text describing the current session. Present only if there is an active
 session on the sink.
@@ -55,7 +55,7 @@ Also starts observing for issue messages. When an issue is added or removed,
 an `issueUpdated` event is fired.
 
 * **Parameters:**
-  **presentation_url** ([`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`str`](https://docs.python.org/3/library/stdtypes.html#str)]) – *(Optional)*
+  **presentation_url** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) | [`None`](https://docs.python.org/3/library/constants.html#None)) –  *(Optional)*
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -65,7 +65,7 @@ Sets a sink to be used when the web page requests the browser to choose a
 sink via Presentation API, Remote Playback API, or Cast SDK.
 
 * **Parameters:**
-  **sink_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **sink_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -74,7 +74,7 @@ sink via Presentation API, Remote Playback API, or Cast SDK.
 Starts mirroring the desktop to the sink.
 
 * **Parameters:**
-  **sink_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **sink_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -83,7 +83,7 @@ Starts mirroring the desktop to the sink.
 Starts mirroring the tab to the sink.
 
 * **Parameters:**
-  **sink_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **sink_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -92,7 +92,7 @@ Starts mirroring the tab to the sink.
 Stops the active Cast session on the sink.
 
 * **Parameters:**
-  **sink_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – 
+  **sink_name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str))
 * **Return type:**
   [`Generator`](https://docs.python.org/3/library/typing.html#typing.Generator)[[`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`Dict`](https://docs.python.org/3/library/typing.html#typing.Dict)[[`str`](https://docs.python.org/3/library/stdtypes.html#str), [`Any`](https://docs.python.org/3/library/typing.html#typing.Any)], [`None`](https://docs.python.org/3/library/constants.html#None)]
 
@@ -107,11 +107,11 @@ you use the event’s attributes.
 This is fired whenever the list of available sinks changes. A sink is a
 device or a software surface that you can cast to.
 
-#### sinks*: [`List`](https://docs.python.org/3/library/typing.html#typing.List)[[`Sink`](#nodriver.cdp.cast.Sink)]*
+#### sinks *: [List](https://docs.python.org/3/library/typing.html#typing.List)[[Sink](#nodriver.cdp.cast.Sink)]*
 
 ### *class* IssueUpdated(issue_message)
 
 This is fired whenever the outstanding issue/error message changes.
 `issueMessage` is empty if there is no issue.
 
-#### issue_message*: [`str`](https://docs.python.org/3/library/stdtypes.html#str)*
+#### issue_message *: [str](https://docs.python.org/3/library/stdtypes.html#str)*
