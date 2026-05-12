@@ -2,7 +2,7 @@
 
 name = "nodriver" # Required
 
-version = "0.50.1.post1"  # Required
+version = "0.48.1.post1"  # Required
 
 description = "Asynchronous browser automation and web scraping for Chromium-based browsers."
 readme = {file = "README.md", content-type = "text/markdown"} # Optional
@@ -49,6 +49,7 @@ dependencies = [
 [tool.setuptools]
 include-package-data = true
 packages = ["nodriver", "nodriver.core", "nodriver.cdp"]
+license-files = ["LICENSE.txt"]
 
 [build-system]
 requires = ["setuptools>=82.0.1", "wheel"]
